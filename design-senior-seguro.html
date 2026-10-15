@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Sênior-Seguro — guia para plataformas financeiras acessíveis e resistentes a golpes</title>
+<meta name="description" content="Guia metodológico para equipes que projetam sites, aplicativos e plataformas financeiras acessíveis ao público idoso e resistentes à engenharia social.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#152530; --ink-2:#1F3A4A; --paper:#F1F0E6; --paper-2:#FFFFFF; --line:#D8D5C6;
+    --gold:#B8863B; --gold-dim:#7A5A24; --danger:#A8422F; --danger-bg:#F4E7E3; --safe:#3E6E5C; --safe-bg:#E6EEE9;
+    --muted:#55646B; --focus:#1B5FA8;
+    --serif:'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --sans:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --scale:1;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;font-size:calc(17px * var(--scale));}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none !important;} }
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:2px;}
+  img,svg{max-width:100%;}
+  .skip{position:absolute;left:16px;top:-60px;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:100;text-decoration:none;font-weight:600;}
+  .skip:focus{top:12px;}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  @media (max-width:560px){ .wrap{padding:0 16px;} }
+  .measure{max-width:44em;}
+
+  header.top{position:sticky;top:0;z-index:50;background:rgba(241,240,230,0.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 32px;max-width:1120px;margin:0 auto;}
+  @media (max-width:560px){ .topbar{padding:8px 16px;} }
+  .brand{font-family:var(--serif);font-weight:600;font-size:1.1rem;white-space:nowrap;display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px;}
+  .brand .mark{width:28px;height:28px;border-radius:6px;background:var(--ink);display:inline-flex;align-items:center;justify-content:center;color:var(--paper);font-family:var(--mono);font-size:13px;font-weight:600;}
+  nav.primary ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;}
+  nav.primary a{display:inline-flex;align-items:center;min-height:44px;padding:0 9px;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.86rem;border-bottom:2px solid transparent;}
+  nav.primary a:hover{color:var(--ink);border-color:var(--gold);}
+  .tools{display:flex;align-items:center;gap:6px;}
+  .tbtn{min-width:44px;min-height:44px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:.9rem;border-radius:6px;cursor:pointer;}
+  .tbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .menu-btn{display:none;}
+  @media (max-width:1100px){
+    .menu-btn{display:inline-flex;align-items:center;justify-content:center;padding:0 14px;}
+    nav.primary{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);}
+    nav.primary.open{display:block;}
+    nav.primary ul{flex-direction:column;padding:8px 16px 16px;}
+    nav.primary a{font-size:1rem;width:100%;}
+  }
+  .size-label{font-size:.75rem;color:var(--muted);margin-right:2px;}
+  .sizes{display:flex;gap:4px;}
+  .nav-sizes{display:none;}
+  @media (max-width:640px){
+    .size-label,.sizes{display:none !important;}
+    .nav-sizes{display:flex !important;align-items:center;gap:6px;padding-top:10px;margin-top:6px;border-top:1px solid var(--line);}
+    .nav-sizes span{font-size:.85rem;color:var(--muted);margin-right:6px;}
+    br.d{display:none;}
+  }
+
+  .hero{padding-top:80px;padding-bottom:56px;}
+  .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:end;}
+  @media (max-width:840px){ .hero-grid{grid-template-columns:1fr;gap:36px;} .hero{padding-top:48px;padding-bottom:40px;} }
+  .kicker{font-family:var(--mono);font-size:.8rem;color:var(--gold-dim);margin:0 0 18px;letter-spacing:.02em;}
+  h1.display{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3.3rem);line-height:1.08;letter-spacing:-.01em;margin:0 0 22px;}
+  h1.display em{font-style:italic;font-weight:500;color:var(--ink-2);}
+  .hero-lede{font-size:1.06rem;color:var(--ink-2);max-width:52ch;}
+  .stat-block{border-left:3px solid var(--gold);padding-left:20px;}
+  .stat-block + .stat-block{margin-top:24px;}
+  .stat-num{font-family:var(--serif);font-size:2.2rem;font-weight:600;line-height:1;color:var(--ink);}
+  .stat-label{font-size:.86rem;color:var(--muted);margin-top:6px;max-width:36ch;}
+
+  section{padding:64px 0;border-top:1px solid var(--line);scroll-margin-top:72px;}
+  @media (max-width:560px){ section{padding:44px 0;} }
+  section.tight{padding:48px 0;}
+  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+  .section-num{font-family:var(--mono);color:var(--gold-dim);font-size:.85rem;}
+  h2{font-family:var(--serif);font-weight:600;font-size:1.8rem;margin:0;letter-spacing:-.01em;line-height:1.2;}
+  h3{font-family:var(--serif);font-weight:600;font-size:1.15rem;margin:0 0 8px;line-height:1.3;}
+  p{margin:0 0 16px;}
+  .lede{font-size:1.06rem;color:var(--ink-2);}
+
+  .premise-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px;}
+  .premise-cards > div{background:var(--paper-2);padding:24px 22px;}
+  @media (max-width:760px){ .premise-cards{grid-template-columns:1fr;} }
+  .premise-cards h3{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--gold-dim);margin:0 0 10px;}
+  .premise-cards p{font-size:.92rem;color:var(--ink-2);margin:0;}
+
+  .persona-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:8px;}
+  @media (max-width:1000px){ .persona-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .persona-grid{grid-template-columns:1fr;} }
+  .persona{background:var(--paper-2);border:1px solid var(--line);padding:20px 18px;}
+  .persona .tag{font-family:var(--mono);font-size:.72rem;color:var(--gold-dim);margin:0;}
+  .persona h3{font-size:1.02rem;margin:8px 0 8px;}
+  .persona p{font-size:.88rem;color:var(--ink-2);margin:0;}
+  .src{font-size:.78rem;color:var(--muted);margin-top:10px !important;}
+
+  .table-wrap{overflow-x:auto;}
+  .scam-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem;}
+  .scam-table caption{text-align:left;font-size:.82rem;color:var(--muted);padding-bottom:8px;}
+  .scam-table th{text-align:left;font-family:var(--mono);font-weight:600;font-size:.74rem;color:var(--muted);padding:10px 14px 10px 0;border-bottom:1px solid var(--ink);vertical-align:bottom;}
+  .scam-table td{padding:14px 14px 14px 0;border-bottom:1px solid var(--line);vertical-align:top;}
+  .scam-table tr td:first-child{font-family:var(--serif);font-weight:600;font-size:.95rem;min-width:9em;}
+  .scam-table .design-q{color:var(--danger);font-style:italic;}
+  .scam-table td:last-child{min-width:7.5em;}
+  .dchip{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin:2px 4px 2px 0;padding:0 8px;border:1px solid var(--ink-2);border-radius:4px;font-family:var(--mono);font-size:.75rem;text-decoration:none;background:var(--paper-2);}
+  .dchip:hover{background:var(--ink);color:var(--paper);}
+  @media (max-width:820px){
+    .scam-table thead{display:none;}
+    .scam-table, .scam-table tbody, .scam-table tr, .scam-table td{display:block;width:100%;}
+    .scam-table tr{border-bottom:1px solid var(--line);padding:16px 0;}
+    .scam-table td{border:none;padding:4px 0;}
+    .scam-table td:before{content:attr(data-label);display:block;font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-bottom:2px;}
+  }
+
+  .dgroup{margin-top:40px;}
+  .dgroup-head{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:10px;margin-bottom:18px;}
+  .gletter{font-family:var(--mono);font-size:.78rem;color:var(--gold-dim);margin:0;grid-row:span 2;}
+  .gname{font-size:1.3rem;margin:0;}
+  .gdesc{margin:0;color:var(--muted);font-size:.9rem;}
+  .dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:760px){ .dgrid{grid-template-columns:1fr;} }
+  .dcard{background:var(--paper-2);border:1px solid var(--line);padding:22px 20px;scroll-margin-top:80px;}
+  .dcard:target{outline:3px solid var(--gold);}
+  .did{font-family:var(--mono);font-size:.78rem;color:var(--gold-dim);margin:0 0 4px;}
+  .dcard > p{font-size:.92rem;}
+  .dmeta{font-size:.84rem !important;color:var(--ink-2);margin:0 0 8px;}
+  .dmeta span{display:block;font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+
+  .pattern{margin:40px 0 0;}
+  .pattern-head{margin-bottom:16px;}
+  .pattern-head .heur{font-family:var(--mono);font-size:.76rem;color:var(--gold-dim);margin:0 0 6px;}
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media (max-width:720px){ .compare{grid-template-columns:1fr;} }
+  .panel{border:1px solid var(--line);background:var(--paper-2);overflow:hidden;}
+  .panel-label{font-family:var(--mono);font-size:.76rem;font-weight:600;padding:9px 16px;margin:0;}
+  .panel.risk .panel-label{background:var(--danger-bg);color:var(--danger);}
+  .panel.safe .panel-label{background:var(--safe-bg);color:var(--safe);}
+  .panel-body{padding:22px 20px;min-height:150px;display:flex;flex-direction:column;justify-content:center;}
+  .mock-btn{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:10px 14px;border-radius:8px;font-size:.86rem;font-weight:600;margin:4px 0;}
+  .risk .mock-row{display:flex;gap:6px;}
+  .risk .mock-row .mock-btn{flex:1;min-height:34px;padding:6px 8px;font-size:.78rem;}
+  .mock-btn.cancel{background:#E7E4D8;color:#3F3F3A;}
+  .risk .mock-btn.confirm{background:#B8432E;color:#fff;}
+  .safe .mock-btn.cancel{background:transparent;color:var(--ink-2);border:1px solid var(--ink-2);margin-top:20px;}
+  .safe .mock-btn.confirm{background:var(--safe);color:#fff;}
+  .mock-caption{font-size:.84rem;color:var(--ink-2);margin:14px 0 0;}
+  .mock-sig{font-family:var(--mono);font-size:.76rem;color:var(--ink);background:#EDEBDF;padding:9px 11px;border-radius:6px;margin-top:8px;}
+  .mock-q{border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.86rem;}
+  .mock-q strong{display:block;margin-bottom:8px;}
+  .mock-q .opts{display:flex;gap:8px;flex-wrap:wrap;}
+  .mock-q .opts span{border:1px solid var(--ink-2);border-radius:6px;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;font-weight:600;}
+
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);counter-reset:s;}
+  @media (max-width:900px){ .steps{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .steps{grid-template-columns:1fr;} }
+  .step{background:var(--paper-2);padding:20px 18px;}
+  .step h3{font-size:1rem;}
+  .step h3:before{counter-increment:s;content:counter(s) ". ";color:var(--gold-dim);font-family:var(--mono);}
+  .step p{font-size:.86rem;color:var(--ink-2);margin:0 0 8px;}
+
+  .modules{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px;}
+  @media (max-width:900px){ .modules{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .modules{grid-template-columns:1fr;} }
+  .module{background:var(--ink);color:var(--paper);padding:26px 22px;min-height:180px;display:flex;flex-direction:column;}
+  .module .mnum{font-family:var(--mono);font-size:.78rem;color:#C9A25F;margin:0;}
+  .module h3{font-size:1.05rem;margin:12px 0 10px;color:var(--paper);}
+  .module p{font-size:.84rem;color:#C3CBCF;margin:0;}
+
+  .cl-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:8px 0 12px;}
+  .progress{flex:1 1 240px;}
+  .progress-bar{height:10px;background:#E2DFD2;border-radius:6px;overflow:hidden;}
+  .progress-bar span{display:block;height:100%;width:0;background:var(--safe);transition:width .2s;}
+  .progress p{font-size:.84rem;color:var(--ink-2);margin:6px 0 0;}
+  .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:4px;font-family:var(--sans);font-weight:600;font-size:.9rem;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:var(--paper);}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .cl-group summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:1.08rem;font-weight:600;}
+  .cl-group summary::-webkit-details-marker{display:none;}
+  .cl-group summary .plus{font-family:var(--mono);color:var(--gold-dim);font-size:1.3rem;}
+  .cl-group[open] summary .plus{transform:rotate(45deg);display:inline-block;}
+  .cl-items{list-style:none;margin:0;padding:6px 0 18px;}
+  .cl-item{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line);}
+  .cl-item input{flex:0 0 24px;width:24px;height:24px;margin:2px 0 0;accent-color:var(--safe);cursor:pointer;}
+  .cl-item label{font-size:.94rem;cursor:pointer;}
+  .cl-item .ref{display:block;font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:4px;}
+
+  .quote{font-family:var(--serif);font-style:italic;font-size:1.5rem;line-height:1.4;color:var(--ink-2);max-width:820px;margin:0;}
+  .quote-cite{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:14px;}
+
+  .refs{font-size:.86rem;padding-left:0;list-style:none;columns:2;column-gap:40px;}
+  @media (max-width:820px){ .refs{columns:1;} }
+  .refs li{break-inside:avoid;margin-bottom:10px;text-align:left;overflow-wrap:anywhere;}
+  .refs a{color:var(--ink-2);}
+
+  footer{padding:52px 0 72px;border-top:1px solid var(--line);}
+  .foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr;gap:28px;} }
+  .foot-h{font-family:var(--mono);font-size:.76rem;font-weight:600;color:var(--muted);margin:0 0 14px;letter-spacing:.02em;}
+  footer ul{list-style:none;margin:0;padding:0;font-size:.88rem;}
+  footer li{margin-bottom:9px;}
+  .fine{font-size:.76rem;color:var(--muted);margin-top:36px;}
+
+  @media print{
+    header.top, .skip, .cl-toolbar .btn, nav{display:none !important;}
+    section{padding:24px 0;break-inside:auto;}
+    .cl-group{display:block;} .cl-group > *{display:block;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="top">
+  <div class="topbar">
+    <a class="brand" href="#conteudo"><span class="mark" aria-hidden="true">DS</span>Design Sênior-Seguro</a>
+    <nav class="primary" id="menu" aria-label="Seções do guia">
+      <ul>
+        <li><a href="#problema">O problema</a></li>
+        <li><a href="#usuario">Usuário sênior</a></li>
+        <li><a href="#golpes">Golpes</a></li>
+        <li><a href="#diretrizes">Diretrizes</a></li>
+        <li><a href="#padroes">Padrões</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+        <li class="nav-sizes"><span>Tamanho do texto</span>
+          <button class="tbtn" type="button" data-scale="1" aria-pressed="true" aria-label="Tamanho de texto padrão">A</button>
+          <button class="tbtn" type="button" data-scale="1.15" aria-pressed="false" aria-label="Texto maior">A+</button>
+          <button class="tbtn" type="button" data-scale="1.3" aria-pressed="false" aria-label="Texto muito maior">A++</button></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <span class="size-label" id="size-label">Texto</span>
+      <div class="sizes" role="group" aria-labelledby="size-label">
+        <button class="tbtn" type="button" data-scale="1" aria-pressed="true" aria-label="Tamanho de texto padrão">A</button>
+        <button class="tbtn" type="button" data-scale="1.15" aria-pressed="false" aria-label="Texto maior">A+</button>
+        <button class="tbtn" type="button" data-scale="1.3" aria-pressed="false" aria-label="Texto muito maior">A++</button>
+      </div>
+      <button class="tbtn menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo" tabindex="-1">
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">GUIA DE PROJETO — INTERAÇÃO HUMANO-COMPUTADOR E SEGURANÇA COMPORTAMENTAL</p>
+        <h1 class="display">O golpe não invade<br class="d"> o sistema. <em>Ele passa<br class="d"> pela sua interface.</em></h1>
+        <p class="hero-lede">Um golpista raramente quebra criptografia. Ele explora uma confirmação ambígua, uma sigla não explicada, um botão de cancelar mal posicionado ou a ausência de um canal oficial verificável. Este é um guia técnico para equipes que constroem sites, aplicativos e plataformas financeiras — sobre como projetar para o usuário sênior sem abrir brechas para a engenharia social.</p>
+      </div>
+      <div>
+        <div class="stat-block">
+          <p class="stat-num">+60%</p>
+          <p class="stat-label">nas tentativas de golpes financeiros contra idosos no início da pandemia, segundo a Febraban (Melo, 2020)</p>
+        </div>
+        <div class="stat-block">
+          <p class="stat-num">51,6%</p>
+          <p class="stat-label">das pessoas que não usavam a internet no Brasil em 2023 tinham 60 anos ou mais (Instituto Brasileiro de Geografia e Estatística, 2024)</p>
+        </div>
+        <div class="stat-block">
+          <p class="stat-num">281 mil</p>
+          <p class="stat-label">registros de estelionato por meio eletrônico em 2024, alta de 17% sobre 2023 (Fórum Brasileiro de Segurança Pública, 2025)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="problema" aria-labelledby="h-problema">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">01</span><h2 id="h-problema">O usuário médio não existe</h2></div>
+      <p class="lede measure">Interfaces bancárias costumam ser desenhadas para um perfil de alta agilidade cognitiva e fluência digital. Esse perfil não representa boa parte do público idoso — que já soma mais de 32 milhões de pessoas no Brasil (Instituto Brasileiro de Geografia e Estatística, 2023) — e o descompasso entre a interface e quem realmente a usa abre caminho para a fraude.</p>
+      <div class="premise-cards">
+        <div><h3>Acesso</h3><p>Pessoas com 60 anos ou mais formam a maior parcela de quem ainda não usa a internet, e muitas acessam apenas por smartphone, com aparelhos de entrada e conexão instável (Instituto Brasileiro de Geografia e Estatística, 2024; PwC Brasil; Instituto Locomotiva, 2022).</p></div>
+        <div><h3>Modelo mental</h3><p>Quando o comportamento do sistema não corresponde ao que o usuário espera, a confiança se desgasta — e ele fica mais receptivo a quem se apresenta como “suporte técnico” ou “funcionário do banco”.</p></div>
+        <div><h3>Consequência</h3><p>Um golpe bem-sucedido pode comprometer toda a renda de aposentadoria da vítima. O custo de um design confuso, aqui, não é um carrinho abandonado — é patrimônio.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="usuario" aria-labelledby="h-usuario">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">02</span><h2 id="h-usuario">Para quem você está de fato projetando</h2></div>
+      <p class="lede measure">As mudanças sensoriais, motoras e cognitivas do envelhecimento não são uma ruptura, mas uma reconfiguração previsível de capacidades (Neri, 2001; Czaja <em>et al.</em>, 2019). Traduzidas em requisitos de interface, elas se parecem com isto:</p>
+      <div class="persona-grid">
+        <div class="persona"><p class="tag">VISÃO</p><h3>Contraste e tamanho</h3><p>Catarata e perda de sensibilidade ao contraste tornam textos pequenos e claros difíceis de ler; ícones sem rótulo aumentam erros de interpretação.</p><p class="src">Anjos; Gontijo (2015); Kane (2019)</p></div>
+        <div class="persona"><p class="tag">MEMÓRIA DE TRABALHO</p><h3>Atenção dividida</h3><p>Fluxos que exigem alternar entre aplicativos — copiar um código recebido por SMS, por exemplo — sobrecarregam uma capacidade que diminui com a idade.</p><p class="src">Neri (2001); Zabini (2021)</p></div>
+        <div class="persona"><p class="tag">MOTRICIDADE</p><h3>Precisão de toque</h3><p>Áreas de toque pequenas e botões próximos aumentam o risco de acionar a ação errada — especialmente em decisões irreversíveis.</p><p class="src">Kane (2019); Santos; Rodrigues; Ribeiro (2023)</p></div>
+        <div class="persona"><p class="tag">LETRAMENTO</p><h3>Vocabulário técnico</h3><p>Siglas sem explicação — TED, DOC, CDB — não economizam espaço: criam pontos cegos que um golpista preenche com falsa autoridade.</p><p class="src">Anjos; Gontijo (2015); Mota (2024)</p></div>
+        <div class="persona"><p class="tag">EMOÇÃO E CONFIANÇA</p><h3>Medo de errar</h3><p>O medo é apontado como a principal barreira ao uso de aplicativos bancários por idosos, que tendem a culpar a si mesmos pelos erros da interface.</p><p class="src">Feliciano; Frogeri (2018); Kane (2019)</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="golpes" aria-labelledby="h-golpes">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">03</span><h2 id="h-golpes">Cada golpe explora uma decisão de design</h2></div>
+      <p class="lede measure">A pergunta certa não é “como o idoso pode se proteger”. É: <strong>que decisão de interface tornou esse golpe possível — e como o fluxo poderia tê-lo impedido?</strong></p>
+      <div class="table-wrap">
+      <table class="scam-table">
+        <caption>Vetores de fraude tratados como requisitos negativos de projeto. Fontes: Melo (2020); Instituto de Defesa de Consumidores (2024); Cialdini (2012); Oliveira <em>et al.</em> (2017).</caption>
+        <thead><tr><th scope="col">Golpe</th><th scope="col">Como opera</th><th scope="col">Gatilho psicológico</th><th scope="col">Falha de interface explorada</th><th scope="col">Pergunta de projeto</th><th scope="col">Diretrizes</th></tr></thead>
+        <tbody>
+<tr>
+  <td data-label="Golpe">Falsa central (vishing)</td>
+  <td data-label="Como opera">Ligação que simula o banco e pede dados, código ou uma transferência “de teste”.</td>
+  <td data-label="Gatilho psicológico">Autoridade e medo</td>
+  <td data-label="Falha de interface explorada">Ausência de canal oficial verificável; transação concluída sem nenhuma pergunta sobre o contexto.</td>
+  <td data-label="Pergunta de projeto" class="design-q">O app permite confirmar, de dentro dele, se a ligação é do banco — e pergunta se há alguém ao telefone antes de uma transferência atípica?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D11" title="Interrupção contextual antigolpe">D11</a> <a class="dchip" href="#D12" title="Canal oficial verificável e mensagens inequívocas">D12</a> <a class="dchip" href="#D10" title="Fricção proporcional ao risco">D10</a></td>
+</tr>
+<tr>
+  <td data-label="Golpe">Falso funcionário com acesso remoto</td>
+  <td data-label="Como opera">Induz a instalação de aplicativo de acesso remoto e opera o celular da vítima.</td>
+  <td data-label="Gatilho psicológico">Autoridade e confiança</td>
+  <td data-label="Falha de interface explorada">Operações sensíveis permitidas com tela compartilhada ou controle remoto ativo.</td>
+  <td data-label="Pergunta de projeto" class="design-q">O fluxo detecta compartilhamento de tela ou acesso remoto e interrompe a operação?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D13" title="Detecção de contexto de manipulação técnica">D13</a> <a class="dchip" href="#D12" title="Canal oficial verificável e mensagens inequívocas">D12</a> <a class="dchip" href="#D11" title="Interrupção contextual antigolpe">D11</a></td>
+</tr>
+<tr>
+  <td data-label="Golpe">Falso familiar (WhatsApp)</td>
+  <td data-label="Como opera">Perfil clonado ou número novo pede um Pix urgente em nome de um parente.</td>
+  <td data-label="Gatilho psicológico">Afinidade e urgência</td>
+  <td data-label="Falha de interface explorada">Pix imediato a recebedor nunca usado; nome do recebedor pouco destacado na revisão.</td>
+  <td data-label="Pergunta de projeto" class="design-q">O nome real do recebedor aparece em destaque e um primeiro envio de valor alto passa por etapa extra?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D6" title="Revisão explícita antes de transações">D6</a> <a class="dchip" href="#D10" title="Fricção proporcional ao risco">D10</a> <a class="dchip" href="#D11" title="Interrupção contextual antigolpe">D11</a></td>
+</tr>
+<tr>
+  <td data-label="Golpe">Falso motoboy</td>
+  <td data-label="Como opera">Convence a vítima a entregar o cartão “clonado” a um portador.</td>
+  <td data-label="Gatilho psicológico">Confiança e aversão à perda</td>
+  <td data-label="Falha de interface explorada">Mensagem de segurança ausente ou escondida; bloqueio de cartão difícil de encontrar.</td>
+  <td data-label="Pergunta de projeto" class="design-q">O app lembra que o banco nunca busca cartões e oferece bloqueio em um toque?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D12" title="Canal oficial verificável e mensagens inequívocas">D12</a> <a class="dchip" href="#D8" title="Recuperação de erros e contestação em um toque">D8</a></td>
+</tr>
+<tr>
+  <td data-label="Golpe">Phishing e smishing</td>
+  <td data-label="Como opera">Link por SMS, e-mail ou mensagem leva a página falsa que captura credenciais.</td>
+  <td data-label="Gatilho psicológico">Urgência e curiosidade</td>
+  <td data-label="Falha de interface explorada">Comunicação oficial indistinguível de falsificações; credenciais digitáveis em qualquer página.</td>
+  <td data-label="Pergunta de projeto" class="design-q">O usuário distingue uma comunicação oficial sem precisar entender domínios, e a autenticação resiste a páginas falsas?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D12" title="Canal oficial verificável e mensagens inequívocas">D12</a> <a class="dchip" href="#D9" title="Autenticação e tempo acessíveis">D9</a></td>
+</tr>
+<tr>
+  <td data-label="Golpe">Consignado não autorizado</td>
+  <td data-label="Como opera">Dados vazados são usados para contratar crédito sem anuência do titular.</td>
+  <td data-label="Gatilho psicológico">Desinformação e inércia</td>
+  <td data-label="Falha de interface explorada">Contratação sem notificação imediata; contestação longa e difícil.</td>
+  <td data-label="Pergunta de projeto" class="design-q">Uma nova contratação gera notificação impossível de ignorar, com contestação em um toque?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D14" title="Notificação de eventos sensíveis">D14</a> <a class="dchip" href="#D8" title="Recuperação de erros e contestação em um toque">D8</a> <a class="dchip" href="#D16" title="Ausência de padrões enganosos">D16</a></td>
+</tr>
+<tr>
+  <td data-label="Golpe">Seguros e tarifas não contratados</td>
+  <td data-label="Como opera">Serviços embutidos em contratações ou cobrados sem pedido.</td>
+  <td data-label="Gatilho psicológico">Inércia</td>
+  <td data-label="Falha de interface explorada">Opções pré-marcadas e termos obscuros.</td>
+  <td data-label="Pergunta de projeto" class="design-q">Algum serviço vem pré-selecionado ou descrito com jargão?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D16" title="Ausência de padrões enganosos">D16</a> <a class="dchip" href="#D3" title="Linguagem simples e termos explicados">D3</a> <a class="dchip" href="#D6" title="Revisão explícita antes de transações">D6</a></td>
+</tr>
+<tr>
+  <td data-label="Golpe">Erro operacional (não intencional)</td>
+  <td data-label="Como opera">Envio de valor ou para destinatário errado.</td>
+  <td data-label="Gatilho psicológico">—</td>
+  <td data-label="Falha de interface explorada">Botões próximos e de mesmo peso; revisão pobre; confirmação ambígua.</td>
+  <td data-label="Pergunta de projeto" class="design-q">A revisão mostra recebedor e valor por extenso, e a confirmação é inequívoca e permanente?</td>
+  <td data-label="Diretrizes"><a class="dchip" href="#D2" title="Alvos de toque amplos e separação de ações opostas">D2</a> <a class="dchip" href="#D6" title="Revisão explícita antes de transações">D6</a> <a class="dchip" href="#D7" title="Confirmação síncrona e comprovante permanente">D7</a> <a class="dchip" href="#D8" title="Recuperação de erros e contestação em um toque">D8</a></td>
+</tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="diretrizes" aria-labelledby="h-diretrizes">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">04</span><h2 id="h-diretrizes">Dezesseis diretrizes de design sênior-seguro</h2></div>
+      <p class="lede measure">Cada diretriz traz o que fazer, por que fazer (com a evidência que a sustenta) e como verificar — com o critério WCAG 2.2, a heurística de Nielsen ou a regra de Shneiderman correspondente.</p>
+<div class="dgroup">
+  <div class="dgroup-head"><p class="gletter">Grupo A</p><h3 class="gname">Percepção</h3><p class="gdesc">Garantir que a informação seja vista e alcançada.</p></div>
+  <div class="dgrid"><article class="dcard" id="D1">
+  <p class="did">D1</p>
+  <h3>Legibilidade, contraste e ampliação</h3>
+  <p>Adotar corpo de texto de no mínimo 16 px (ou equivalente nas plataformas móveis), contraste de pelo menos 4,5:1 para texto e 3:1 para componentes de interface, suporte à ampliação de até 200% sem perda de conteúdo e alertas que não dependam apenas de cor.</p>
+  <p class="dmeta"><span>Por quê</span>Alterações visuais do envelhecimento, como catarata e menor sensibilidade ao contraste (Czaja et al., 2019; Anjos; Gontijo, 2015); textos pequenos e claros demais relatados em testes com idosos (Kane, 2019).</p>
+  <p class="dmeta"><span>Como verificar</span>WCAG 2.2 — 1.4.1, 1.4.3, 1.4.4 e 1.4.11.</p>
+</article><article class="dcard" id="D2">
+  <p class="did">D2</p>
+  <h3>Alvos de toque amplos e separação de ações opostas</h3>
+  <p>Dimensionar alvos interativos com pelo menos 44 × 44 px CSS — acima do mínimo de 24 × 24 px do nível AA — e separar espacialmente ações opostas (confirmar e cancelar), com hierarquia visual distinta entre elas.</p>
+  <p class="dmeta"><span>Por quê</span>Declínio da precisão motora e toques acidentais relatados por idosos (Kane, 2019; Zabini, 2021); dificuldade de identificar elementos na tela (Santos; Rodrigues; Ribeiro, 2023).</p>
+  <p class="dmeta"><span>Como verificar</span>WCAG 2.2 — 2.5.5 (AAA) e 2.5.8 (AA); Nielsen — prevenção de erros.</p>
+</article></div>
+</div>
+<div class="dgroup">
+  <div class="dgroup-head"><p class="gletter">Grupo B</p><h3 class="gname">Compreensão</h3><p class="gdesc">Reduzir a carga cognitiva e falar a língua do usuário.</p></div>
+  <div class="dgrid"><article class="dcard" id="D3">
+  <p class="did">D3</p>
+  <h3>Linguagem simples e termos explicados</h3>
+  <p>Substituir ou acompanhar siglas e jargões (TED, DOC, CDB, OTP, D+1) por explicação em linguagem cotidiana e exibir valores monetários também por extenso nas telas de confirmação.</p>
+  <p class="dmeta"><span>Por quê</span>Correspondência entre o sistema e o mundo real (Nielsen, 1994); terminologia apontada como ponto crítico para o público idoso (Anjos; Gontijo, 2015; Mota, 2024).</p>
+  <p class="dmeta"><span>Como verificar</span>WCAG 2.2 — 3.1.3 e 3.1.4 (AAA); Nielsen — correspondência com o mundo real.</p>
+</article><article class="dcard" id="D4">
+  <p class="did">D4</p>
+  <h3>Uma decisão por tela e fluxos curtos</h3>
+  <p>Decompor transações em etapas com uma única decisão por tela, indicador de progresso e informações necessárias sempre visíveis, sem exigir que o usuário memorize dados de uma etapa para outra.</p>
+  <p class="dmeta"><span>Por quê</span>Redução da memória de trabalho e da velocidade de processamento no envelhecimento (Neri, 2001; Czaja et al., 2019); dificuldade de lembrar o passo a passo das tarefas (Zabini, 2021).</p>
+  <p class="dmeta"><span>Como verificar</span>Nielsen — reconhecimento em vez de memorização; Shneiderman — reduzir a carga de memória; WCAG 2.2 — 3.3.7.</p>
+</article><article class="dcard" id="D5">
+  <p class="did">D5</p>
+  <h3>Consistência entre telas e versões</h3>
+  <p>Preservar posição, rótulo e ícone das funções mais usadas entre atualizações, anunciar mudanças relevantes com tutorial opcional e revisitável e manter ajuda e atendimento sempre no mesmo lugar.</p>
+  <p class="dmeta"><span>Por quê</span>Desorientação após atualizações e pouca familiaridade com aplicativos (Santos; Rodrigues; Ribeiro, 2023); consistência como regra de ouro do design de interfaces (Shneiderman et al., 2016).</p>
+  <p class="dmeta"><span>Como verificar</span>Nielsen — consistência e padrões; WCAG 2.2 — 3.2.3, 3.2.4 e 3.2.6.</p>
+</article></div>
+</div>
+<div class="dgroup">
+  <div class="dgroup-head"><p class="gletter">Grupo C</p><h3 class="gname">Ação e controle</h3><p class="gdesc">Prevenir erros e permitir recuperação.</p></div>
+  <div class="dgrid"><article class="dcard" id="D6">
+  <p class="did">D6</p>
+  <h3>Revisão explícita antes de transações</h3>
+  <p>Exibir tela de revisão obrigatória com nome completo do recebedor, instituição, chave utilizada e valor em algarismos e por extenso; o botão primário descreve a ação e o valor (por exemplo, “Enviar R$ 850,00 para Maria S.”).</p>
+  <p class="dmeta"><span>Por quê</span>Prevenção de erros (Nielsen, 1994); relatos de transferências enviadas ao destinatário errado (Zabini, 2021).</p>
+  <p class="dmeta"><span>Como verificar</span>WCAG 2.2 — 3.3.4 (AA); Shneiderman — prevenir erros.</p>
+</article><article class="dcard" id="D7">
+  <p class="did">D7</p>
+  <h3>Confirmação síncrona e comprovante permanente</h3>
+  <p>Após cada transação, exibir confirmação inequívoca com data, hora, valor e destinatário, mantê-la consultável no histórico e permitir o compartilhamento do comprovante.</p>
+  <p class="dmeta"><span>Por quê</span>Visibilidade do status do sistema (Nielsen, 1994); diálogos que produzem fechamento (Shneiderman et al., 2016).</p>
+  <p class="dmeta"><span>Como verificar</span>Nielsen — visibilidade do status do sistema; WCAG 2.2 — 4.1.3.</p>
+</article><article class="dcard" id="D8">
+  <p class="did">D8</p>
+  <h3>Recuperação de erros e contestação em um toque</h3>
+  <p>Oferecer, a partir do comprovante e das notificações, caminhos diretos para bloquear cartão, contestar transação e acionar o Mecanismo Especial de Devolução (MED) do Pix, com mensagens que não culpem o usuário.</p>
+  <p class="dmeta"><span>Por quê</span>Recuperação de erros (Nielsen, 1994); tendência de idosos a se culparem pelos erros (Kane, 2019); MED instituído pelo Banco Central (Banco Central do Brasil, 2021a).</p>
+  <p class="dmeta"><span>Como verificar</span>Nielsen — ajudar a reconhecer, diagnosticar e recuperar-se de erros; Shneiderman — permitir a reversão de ações.</p>
+</article><article class="dcard" id="D9">
+  <p class="did">D9</p>
+  <h3>Autenticação e tempo acessíveis</h3>
+  <p>Evitar que o usuário precise alternar entre aplicativos para copiar códigos; preferir confirmação no próprio app, biometria ou chaves de acesso (passkeys), permitir colar e preencher automaticamente códigos e oferecer extensão de tempo antes de encerrar sessões.</p>
+  <p class="dmeta"><span>Por quê</span>Segurança pouco usável gera contornos inseguros (Adams; Sasse, 1999; Whitten; Tygar, 1999); SMS classificado como autenticador restrito (Grassi et al., 2017).</p>
+  <p class="dmeta"><span>Como verificar</span>WCAG 2.2 — 2.2.1 (A) e 3.3.8 (AA).</p>
+</article></div>
+</div>
+<div class="dgroup">
+  <div class="dgroup-head"><p class="gletter">Grupo D</p><h3 class="gname">Proteção antifraude</h3><p class="gdesc">Interromper o roteiro da engenharia social.</p></div>
+  <div class="dgrid"><article class="dcard" id="D10">
+  <p class="did">D10</p>
+  <h3>Fricção proporcional ao risco</h3>
+  <p>Aplicar etapas adicionais apenas a operações atípicas — primeiro envio a novo recebedor acima de um limiar, aumento de limites, acesso por novo dispositivo — com intervalo de efetivação e explicação do motivo, sem penalizar o uso cotidiano.</p>
+  <p class="dmeta"><span>Por quê</span>Ativação do pensamento deliberativo diante de decisões críticas (Kahneman, 2012); arquitetura de escolhas (Thaler; Sunstein, 2019); limites e prazos já previstos na regulação do Pix (Banco Central do Brasil, 2021b; 2024).</p>
+  <p class="dmeta"><span>Como verificar</span>Shneiderman — prevenir erros; inspeção dos fluxos de alto risco.</p>
+</article><article class="dcard" id="D11">
+  <p class="did">D11</p>
+  <h3>Interrupção contextual antigolpe</h3>
+  <p>Antes de transações de risco, apresentar perguntas curtas sobre o contexto (“Alguém está ao telefone pedindo esta transferência?”, “Você recebeu este pedido por mensagem de um número novo?”) e adaptar a resposta do sistema: pausa, alerta específico ou contato com a instituição.</p>
+  <p class="dmeta"><span>Por quê</span>Interrupção do roteiro de urgência e autoridade explorado pelos golpistas (Cialdini, 2012; Kahneman, 2012); maior suscetibilidade de idosos a apelos de autoridade e reciprocidade (Oliveira et al., 2017).</p>
+  <p class="dmeta"><span>Como verificar</span>Cenários de golpe (falsa central, falso familiar) percorridos em testes de usabilidade.</p>
+</article><article class="dcard" id="D12">
+  <p class="did">D12</p>
+  <h3>Canal oficial verificável e mensagens inequívocas</h3>
+  <p>Concentrar comunicações oficiais em uma caixa de mensagens dentro do aplicativo, lembrar de forma recorrente e contextual o que a instituição nunca solicita (senha, código, transferência de teste, instalação de aplicativos, retirada de cartão) e oferecer função para verificar se uma ligação é legítima.</p>
+  <p class="dmeta"><span>Por quê</span>Modus operandi da falsa central e do falso motoboy (Melo, 2020; Instituto de Defesa de Consumidores, 2024); engenharia social como exploração da confiança (Mitnick; Simon, 2003).</p>
+  <p class="dmeta"><span>Como verificar</span>Nielsen — ajuda e documentação; inventário das mensagens de segurança.</p>
+</article><article class="dcard" id="D13">
+  <p class="did">D13</p>
+  <h3>Detecção de contexto de manipulação técnica</h3>
+  <p>Quando a plataforma permitir, detectar compartilhamento de tela, aplicativos de acesso remoto ou sobreposições ativas durante operações sensíveis e interromper o fluxo com alerta específico.</p>
+  <p class="dmeta"><span>Por quê</span>Golpes do falso funcionário com acesso remoto e do “celular invadido” (Instituto de Defesa de Consumidores, 2024).</p>
+  <p class="dmeta"><span>Como verificar</span>Testes técnicos em dispositivos reais; revisão de segurança do aplicativo.</p>
+</article><article class="dcard" id="D14">
+  <p class="did">D14</p>
+  <h3>Notificação de eventos sensíveis</h3>
+  <p>Notificar imediatamente, por canal oficial, eventos como acesso por novo dispositivo, contratação de crédito ou consignado, alteração de limites e cadastro de chaves Pix, sempre com opção de contestação em um toque.</p>
+  <p class="dmeta"><span>Por quê</span>Fraudes em consignado com uso de dados vazados (Instituto de Defesa de Consumidores, 2024); princípio da transparência no tratamento de dados pessoais (Brasil, 2018).</p>
+  <p class="dmeta"><span>Como verificar</span>Matriz de eventos sensíveis × notificações; LGPD, art. 6º, VI.</p>
+</article><article class="dcard" id="D15">
+  <p class="did">D15</p>
+  <h3>Autonomia com rede de apoio opcional</h3>
+  <p>Permitir que o próprio usuário configure, se desejar, um contato de confiança, limites mais conservadores ou um modo protegido, sem tutela compulsória e com consentimento explícito e revogável.</p>
+  <p class="dmeta"><span>Por quê</span>Dependência de terceiros relatada por idosos para resolver questões financeiras (Zabini, 2021); respeito à autonomia da pessoa idosa (Brasil, 2003); consentimento como base legal (Brasil, 2018).</p>
+  <p class="dmeta"><span>Como verificar</span>Revisão de privacidade e consentimento; testes com usuários.</p>
+</article><article class="dcard" id="D16">
+  <p class="did">D16</p>
+  <h3>Ausência de padrões enganosos</h3>
+  <p>Não utilizar opções pré-marcadas para seguros ou serviços, contagens regressivas artificiais, ofertas de crédito insistentes ou caminhos de cancelamento ocultos.</p>
+  <p class="dmeta"><span>Por quê</span>Prevalência e efeitos dos padrões enganosos em interfaces (Mathur et al., 2019; Luguri; Strahilevitz, 2021); cobranças de seguros e tarifas não contratadas (Instituto de Defesa de Consumidores, 2024).</p>
+  <p class="dmeta"><span>Como verificar</span>Auditoria de padrões enganosos; Código de Defesa do Consumidor, art. 39.</p>
+</article></div>
+</div>
+    </div>
+  </section>
+
+  <section id="padroes" aria-labelledby="h-padroes">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">05</span><h2 id="h-padroes">Padrões de interface, antes e depois</h2></div>
+      <p class="lede measure">Cinco situações recorrentes em aplicativos financeiros e a alternativa que fecha a brecha.</p>
+
+      <div class="pattern">
+        <div class="pattern-head"><p class="heur">Prevenção de erros — heurística 5 (Nielsen, 1994) · WCAG 2.5.8 · D2, D6</p><h3>Separe ações opostas e descreva a consequência no botão</h3></div>
+        <div class="compare">
+          <div class="panel risk"><p class="panel-label">⚠ Padrão de risco</p><div class="panel-body">
+            <div class="mock-row" aria-hidden="true"><span class="mock-btn cancel">Cancelar</span><span class="mock-btn confirm">Confirmar</span></div>
+            <p class="mock-caption">Botões pequenos, lado a lado, com o mesmo peso. Um toque impreciso executa a ação errada — e o rótulo “Confirmar” não diz o que será feito.</p></div></div>
+          <div class="panel safe"><p class="panel-label">✓ Padrão recomendado</p><div class="panel-body">
+            <span class="mock-btn confirm" aria-hidden="true">Enviar R$ 850,00 para Maria S.</span>
+            <span class="mock-btn cancel" aria-hidden="true">Voltar e revisar</span>
+            <p class="mock-caption">A ação principal descreve valor e destinatário; a alternativa fica separada e visualmente subordinada, com área de toque de 44 px.</p></div></div>
+        </div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-head"><p class="heur">Visibilidade do status do sistema — heurística 1 (Nielsen, 1994) · WCAG 4.1.3 · D7</p><h3>Confirme de forma síncrona e inequívoca</h3></div>
+        <div class="compare">
+          <div class="panel risk"><p class="panel-label">⚠ Padrão de risco</p><div class="panel-body">
+            <p class="mock-caption" style="margin-top:0">A tela volta ao início sem mensagem clara. Sem saber se o Pix foi enviado, o usuário repete a transferência — ou liga para um número encontrado fora do app, abrindo espaço para a falsa central.</p></div></div>
+          <div class="panel safe"><p class="panel-label">✓ Padrão recomendado</p><div class="panel-body">
+            <p class="mock-sig">✓ Pix de R$ 850,00 (oitocentos e cinquenta reais) enviado às 14h32 para Maria S. — comprovante salvo no histórico</p>
+            <p class="mock-caption">Confirmação permanente, com hora, valor por extenso e destinatário, consultável depois. Elimina a dúvida que leva ao reenvio ou à checagem por canais não oficiais.</p></div></div>
+        </div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-head"><p class="heur">Correspondência entre o sistema e o mundo real — heurística 2 (Nielsen, 1994) · D3</p><h3>Substitua siglas por linguagem simples</h3></div>
+        <div class="compare">
+          <div class="panel risk"><p class="panel-label">⚠ Padrão de risco</p><div class="panel-body">
+            <p class="mock-sig">Aplicar em CDB — liquidez D+1</p>
+            <p class="mock-caption">A sigla sem explicação obriga o usuário a confiar às cegas — terreno fértil para quem se apresenta como “especialista” para explicar (e manipular).</p></div></div>
+          <div class="panel safe"><p class="panel-label">✓ Padrão recomendado</p><div class="panel-body">
+            <p class="mock-sig">Guardar dinheiro em Certificado de Depósito Bancário (CDB) — você pode resgatar em 1 dia útil</p>
+            <p class="mock-caption">A explicação em linguagem simples é o texto principal; o termo técnico aparece entre parênteses.</p></div></div>
+        </div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-head"><p class="heur">Fricção proporcional e interrupção contextual · D10, D11</p><h3>Quebre o roteiro de urgência antes do envio atípico</h3></div>
+        <div class="compare">
+          <div class="panel risk"><p class="panel-label">⚠ Padrão de risco</p><div class="panel-body">
+            <p class="mock-caption" style="margin-top:0">Primeiro Pix de R$ 4.000 para uma chave nunca usada, numa tarde de terça-feira, sai com o mesmo fluxo de um pagamento rotineiro. O golpista, ao telefone, conduz a vítima tela a tela.</p></div></div>
+          <div class="panel safe"><p class="panel-label">✓ Padrão recomendado</p><div class="panel-body">
+            <div class="mock-q" aria-hidden="true"><strong>Antes de continuar: alguém está ao telefone ou por mensagem pedindo esta transferência agora?</strong><div class="opts"><span>Sim</span><span>Não</span></div></div>
+            <p class="mock-caption">Uma pergunta curta ativa o pensamento deliberado. Se a resposta for “sim”, o app pausa o envio e explica o golpe da falsa central — sem bloquear pagamentos do dia a dia.</p></div></div>
+        </div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-head"><p class="heur">Autenticação acessível — WCAG 3.3.8 · NIST SP 800-63B (Grassi et al., 2017) · D9</p><h3>Autentique sem obrigar o usuário a trocar de aplicativo</h3></div>
+        <div class="compare">
+          <div class="panel risk"><p class="panel-label">⚠ Padrão de risco</p><div class="panel-body">
+            <p class="mock-caption" style="margin-top:0">“Digite o código de 6 dígitos enviado por SMS em até 60 segundos.” O usuário sai do app, memoriza o código, volta — e o campo não aceita colar. O tempo acaba e ele pede ajuda a quem estiver por perto.</p></div></div>
+          <div class="panel safe"><p class="panel-label">✓ Padrão recomendado</p><div class="panel-body">
+            <p class="mock-sig">Confirme com sua digital ou rosto · ou toque em “Aprovar” na notificação do app</p>
+            <p class="mock-caption">Biometria, aprovação no próprio app ou chaves de acesso (passkeys); quando houver código, preenchimento automático, opção de colar e aviso antes do tempo esgotar.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ciclo" aria-labelledby="h-ciclo">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">06</span><h2 id="h-ciclo">Onde aplicar no ciclo de desenvolvimento</h2></div>
+      <p class="lede measure">As diretrizes funcionam melhor quando entram no processo desde os requisitos — e não como revisão de última hora (Pressman; Maxim, 2016).</p>
+      <div class="steps">
+        <div class="step"><h3>Requisitos</h3><p>Converta cada vetor de fraude da seção 03 em um requisito negativo (“o sistema não deve permitir…”) e em critérios de aceite.</p><p class="src">D10–D16</p></div>
+        <div class="step"><h3>Prototipação</h3><p>Desenhe as telas de revisão, confirmação e alerta antes das telas “felizes”. Valide hierarquia, rótulos e linguagem.</p><p class="src">D2–D7, D11</p></div>
+        <div class="step"><h3>Implementação</h3><p>Transforme tamanhos, contrastes e espaçamentos em tokens do design system; implemente detecção de acesso remoto e notificações.</p><p class="src">D1, D2, D9, D13, D14</p></div>
+        <div class="step"><h3>Testes</h3><p>Combine verificação automatizada de acessibilidade, inspeção com o checklist e testes de usabilidade com idosos usando cenários de golpe.</p><p class="src">Checklist · WCAG 2.2</p></div>
+        <div class="step"><h3>Operação</h3><p>Preserve a consistência entre versões, monitore contestações e revise as mensagens de segurança quando surgirem novos golpes.</p><p class="src">D5, D8, D12</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="modulos" class="tight" aria-labelledby="h-modulos">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">07</span><h2 id="h-modulos">Como este guia foi estruturado</h2></div>
+      <div class="modules">
+        <div class="module"><p class="mnum">Módulo 1</p><h3>Perfil e modelo mental do usuário sênior</h3><p>Mudanças cognitivas, sensoriais e motoras traduzidas em requisitos de projeto (seção 02).</p></div>
+        <div class="module"><p class="mnum">Módulo 2</p><h3>Vetores de fraude como requisitos negativos</h3><p>Cada golpe reformulado como pergunta de projeto e ligado às diretrizes que o mitigam (seção 03).</p></div>
+        <div class="module"><p class="mnum">Módulo 3</p><h3>Diretrizes de design inclusivo e seguro</h3><p>Heurísticas de Nielsen, regras de Shneiderman e WCAG 2.2 traduzidas em 16 recomendações acionáveis (seções 04 e 05).</p></div>
+        <div class="module"><p class="mnum">Módulo 4</p><h3>Checklist de conformidade e validação</h3><p>Lista de verificação para revisões de design e testes, mapeada às diretrizes e aos critérios WCAG (seção 08).</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist" aria-labelledby="h-checklist">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">08</span><h2 id="h-checklist">Checklist de conformidade</h2></div>
+      <p class="lede measure">Use antes de uma revisão de design ou de um teste de usabilidade com público sênior. As marcações ficam salvas apenas neste navegador.</p>
+      <div class="cl-toolbar">
+        <div class="progress"><div class="progress-bar" aria-hidden="true"><span id="pbar"></span></div><p id="pcount" aria-live="polite">0 de 26 itens atendidos</p></div>
+        <button class="btn ghost" type="button" id="ck-reset">Limpar marcações</button>
+        <button class="btn" type="button" id="ck-print">Imprimir checklist</button>
+      </div>
+      <div class="checklist">
+<details class="cl-group" open>
+  <summary><span>Grupo A — Percepção</span><span class="plus" aria-hidden="true">+</span></summary>
+  <ul class="cl-items"><li class="cl-item"><input type="checkbox" id="ck1" data-key="ck1"><label for="ck1">O corpo de texto tem no mínimo 16 px e a interface suporta ampliação de 200% sem cortar conteúdo ou ações.<span class="ref">D1 · WCAG 2.2 — 1.4.1, 1.4.3, 1.4.4 e 1.4.11.</span></label></li><li class="cl-item"><input type="checkbox" id="ck2" data-key="ck2"><label for="ck2">Texto atinge contraste de 4,5:1 e ícones, bordas de campos e botões atingem 3:1; nenhum alerta depende só de cor.<span class="ref">D1 · WCAG 2.2 — 1.4.1, 1.4.3, 1.4.4 e 1.4.11.</span></label></li><li class="cl-item"><input type="checkbox" id="ck3" data-key="ck3"><label for="ck3">Botões, links e campos têm área de toque de pelo menos 44 × 44 px.<span class="ref">D2 · WCAG 2.2 — 2.5.5 (AAA) e 2.5.8 (AA); Nielsen — prevenção de erros.</span></label></li><li class="cl-item"><input type="checkbox" id="ck4" data-key="ck4"><label for="ck4">Confirmar e cancelar não estão lado a lado com o mesmo peso visual; há espaço e hierarquia entre eles.<span class="ref">D2 · WCAG 2.2 — 2.5.5 (AAA) e 2.5.8 (AA); Nielsen — prevenção de erros.</span></label></li></ul>
+</details>
+<details class="cl-group">
+  <summary><span>Grupo B — Compreensão</span><span class="plus" aria-hidden="true">+</span></summary>
+  <ul class="cl-items"><li class="cl-item"><input type="checkbox" id="ck5" data-key="ck5"><label for="ck5">Toda sigla ou termo técnico aparece acompanhado de explicação em linguagem simples.<span class="ref">D3 · WCAG 2.2 — 3.1.3 e 3.1.4 (AAA); Nielsen — correspondência com o mundo real.</span></label></li><li class="cl-item"><input type="checkbox" id="ck6" data-key="ck6"><label for="ck6">Telas de confirmação mostram o valor em algarismos e por extenso.<span class="ref">D3 · WCAG 2.2 — 3.1.3 e 3.1.4 (AAA); Nielsen — correspondência com o mundo real.</span></label></li><li class="cl-item"><input type="checkbox" id="ck7" data-key="ck7"><label for="ck7">Cada tela de uma transação pede uma única decisão e mostra em que etapa o usuário está.<span class="ref">D4 · Nielsen — reconhecimento em vez de memorização; Shneiderman — reduzir a carga de memória; WCAG 2.2 — 3.3.7.</span></label></li><li class="cl-item"><input type="checkbox" id="ck8" data-key="ck8"><label for="ck8">Dados já informados não precisam ser digitados de novo nem lembrados de uma tela para outra.<span class="ref">D4 · Nielsen — reconhecimento em vez de memorização; Shneiderman — reduzir a carga de memória; WCAG 2.2 — 3.3.7.</span></label></li><li class="cl-item"><input type="checkbox" id="ck9" data-key="ck9"><label for="ck9">As funções mais usadas mantêm posição, nome e ícone entre versões.<span class="ref">D5 · Nielsen — consistência e padrões; WCAG 2.2 — 3.2.3, 3.2.4 e 3.2.6.</span></label></li><li class="cl-item"><input type="checkbox" id="ck10" data-key="ck10"><label for="ck10">O acesso a ajuda e atendimento humano está no mesmo lugar em todas as telas.<span class="ref">D5 · Nielsen — consistência e padrões; WCAG 2.2 — 3.2.3, 3.2.4 e 3.2.6.</span></label></li></ul>
+</details>
+<details class="cl-group">
+  <summary><span>Grupo C — Ação e controle</span><span class="plus" aria-hidden="true">+</span></summary>
+  <ul class="cl-items"><li class="cl-item"><input type="checkbox" id="ck11" data-key="ck11"><label for="ck11">Antes de concluir, o usuário revisa recebedor, instituição, chave e valor em uma única tela.<span class="ref">D6 · WCAG 2.2 — 3.3.4 (AA); Shneiderman — prevenir erros.</span></label></li><li class="cl-item"><input type="checkbox" id="ck12" data-key="ck12"><label for="ck12">O botão de confirmação descreve a ação e o valor, e não apenas “OK” ou “Continuar”.<span class="ref">D6 · WCAG 2.2 — 3.3.4 (AA); Shneiderman — prevenir erros.</span></label></li><li class="cl-item"><input type="checkbox" id="ck13" data-key="ck13"><label for="ck13">Toda transação concluída gera confirmação com data, hora, valor e destinatário, consultável depois.<span class="ref">D7 · Nielsen — visibilidade do status do sistema; WCAG 2.2 — 4.1.3.</span></label></li><li class="cl-item"><input type="checkbox" id="ck14" data-key="ck14"><label for="ck14">Bloquear cartão e contestar uma transação estão a no máximo um toque do comprovante ou da notificação.<span class="ref">D8 · Nielsen — ajudar a reconhecer, diagnosticar e recuperar-se de erros; Shneiderman — permitir a reversão de ações.</span></label></li><li class="cl-item"><input type="checkbox" id="ck15" data-key="ck15"><label for="ck15">Mensagens de erro explicam o que aconteceu e como corrigir, sem códigos e sem culpar o usuário.<span class="ref">D8 · Nielsen — ajudar a reconhecer, diagnosticar e recuperar-se de erros; Shneiderman — permitir a reversão de ações.</span></label></li><li class="cl-item"><input type="checkbox" id="ck16" data-key="ck16"><label for="ck16">A autenticação não obriga o usuário a sair do app para copiar códigos e aceita colar e preenchimento automático.<span class="ref">D9 · WCAG 2.2 — 2.2.1 (A) e 3.3.8 (AA).</span></label></li><li class="cl-item"><input type="checkbox" id="ck17" data-key="ck17"><label for="ck17">Antes de encerrar a sessão por inatividade, o sistema avisa e permite estender o tempo.<span class="ref">D9 · WCAG 2.2 — 2.2.1 (A) e 3.3.8 (AA).</span></label></li></ul>
+</details>
+<details class="cl-group">
+  <summary><span>Grupo D — Proteção antifraude</span><span class="plus" aria-hidden="true">+</span></summary>
+  <ul class="cl-items"><li class="cl-item"><input type="checkbox" id="ck18" data-key="ck18"><label for="ck18">Envios atípicos (novo recebedor, valor alto, novo dispositivo) passam por etapa extra explicada ao usuário.<span class="ref">D10 · Shneiderman — prevenir erros; inspeção dos fluxos de alto risco.</span></label></li><li class="cl-item"><input type="checkbox" id="ck19" data-key="ck19"><label for="ck19">Pedidos de aumento de limite têm prazo de efetivação e notificação, sem bloquear operações rotineiras.<span class="ref">D10 · Shneiderman — prevenir erros; inspeção dos fluxos de alto risco.</span></label></li><li class="cl-item"><input type="checkbox" id="ck20" data-key="ck20"><label for="ck20">Transações de risco exibem perguntas de contexto e, diante de respostas de risco, pausam o fluxo com alerta específico.<span class="ref">D11 · Cenários de golpe (falsa central, falso familiar) percorridos em testes de usabilidade.</span></label></li><li class="cl-item"><input type="checkbox" id="ck21" data-key="ck21"><label for="ck21">Existe uma caixa de mensagens oficial no app e o usuário consegue verificar se um contato recebido é legítimo.<span class="ref">D12 · Nielsen — ajuda e documentação; inventário das mensagens de segurança.</span></label></li><li class="cl-item"><input type="checkbox" id="ck22" data-key="ck22"><label for="ck22">O app lembra, no momento oportuno, que a instituição nunca pede senha, código, transferência de teste ou o cartão físico.<span class="ref">D12 · Nielsen — ajuda e documentação; inventário das mensagens de segurança.</span></label></li><li class="cl-item"><input type="checkbox" id="ck23" data-key="ck23"><label for="ck23">Operações sensíveis são interrompidas com alerta quando há compartilhamento de tela ou acesso remoto ativo.<span class="ref">D13 · Testes técnicos em dispositivos reais; revisão de segurança do aplicativo.</span></label></li><li class="cl-item"><input type="checkbox" id="ck24" data-key="ck24"><label for="ck24">Novo dispositivo, nova contratação de crédito, mudança de limite e cadastro de chave geram notificação imediata com contestação.<span class="ref">D14 · Matriz de eventos sensíveis × notificações; LGPD, art. 6º, VI.</span></label></li><li class="cl-item"><input type="checkbox" id="ck25" data-key="ck25"><label for="ck25">Contato de confiança e modo protegido são opcionais, configurados pelo próprio titular e revogáveis a qualquer momento.<span class="ref">D15 · Revisão de privacidade e consentimento; testes com usuários.</span></label></li><li class="cl-item"><input type="checkbox" id="ck26" data-key="ck26"><label for="ck26">Não há seguros ou serviços pré-selecionados, urgência artificial ou cancelamento escondido.<span class="ref">D16 · Auditoria de padrões enganosos; Código de Defesa do Consumidor, art. 39.</span></label></li></ul>
+</details>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" aria-label="Síntese">
+    <div class="wrap">
+      <p class="quote">“A vulnerabilidade do idoso no ambiente digital não deriva de incapacidade — deriva de sistemas projetados sem consideração às suas especificidades funcionais.”</p>
+      <p class="quote-cite">Síntese dos autores deste guia, a partir de Barbosa e Silva (2010), Czaja <em>et al.</em> (2019) e Kane (2019)</p>
+    </div>
+  </section>
+
+  <section id="recursos" aria-labelledby="h-recursos">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">09</span><h2 id="h-recursos">Camadas institucionais e regulatórias</h2></div>
+      <p class="lede measure">O design de produto não atua sozinho. Estas camadas complementam as diretrizes e devem ser refletidas na interface.</p>
+      <div class="premise-cards">
+        <div><h3>BC Protege+</h3><p>Serviço do Banco Central, lançado em dezembro de 2025, que permite ao cidadão impedir a abertura de contas em seu nome e sua inclusão como titular ou representante de contas existentes (Banco Central do Brasil, 2025).</p></div>
+        <div><h3>Limites e prazos do Pix</h3><p>Limite noturno e prazo de 24 a 48 horas para aumento de limites (Banco Central do Brasil, 2021b); transações em dispositivos não cadastrados limitadas a R$ 200 por operação e R$ 1.000 por dia (Banco Central do Brasil, 2024).</p></div>
+        <div><h3>Mecanismo Especial de Devolução</h3><p>O MED permite contestar Pix em caso de fraude. A interface deve torná-lo encontrável a partir do comprovante, em linguagem simples (Banco Central do Brasil, 2021a).</p></div>
+        <div><h3>Acessibilidade é obrigação legal</h3><p>A Lei Brasileira de Inclusão torna obrigatória a acessibilidade dos sítios mantidos por empresas com sede ou representação no país (Brasil, 2015, art. 63); o eMAG e a WCAG 2.2 orientam a implementação.</p></div>
+        <div><h3>Autonomia e proteção de dados</h3><p>O Estatuto da Pessoa Idosa assegura o respeito à autonomia (Brasil, 2003) e a LGPD exige transparência e consentimento (Brasil, 2018) — inclusive em recursos de rede de apoio.</p></div>
+        <div><h3>Práticas abusivas</h3><p>O Código de Defesa do Consumidor veda prevalecer-se da fraqueza do consumidor em razão da idade (Brasil, 1990, art. 39, IV) — o que alcança padrões enganosos de interface.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="referencias" aria-labelledby="h-ref">
+    <div class="wrap">
+      <div class="section-head"><span class="section-num">10</span><h2 id="h-ref">Referências</h2></div>
+      <ul class="refs">
+<li>ADAMS, Anne; SASSE, Martina Angela. Users are not the enemy. <strong>Communications of the ACM</strong>, New York, v. 42, n. 12, p. 40-46, dez. 1999. DOI: <a href="https://doi.org/10.1145/322796.322806">https://doi.org/10.1145/322796.322806</a>.</li>
+<li>ANJOS, Thaiana Pereira dos; GONTIJO, Leila Amaral. Recomendações de usabilidade e acessibilidade para interface de telefone celular visando o público idoso. <strong>Production</strong>, São Paulo, v. 25, n. 4, p. 791-811, out./dez. 2015. DOI: <a href="https://doi.org/10.1590/0103-6513.091312">https://doi.org/10.1590/0103-6513.091312</a>.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Resolução BCB nº 103, de 8 de junho de 2021</strong>. Brasília, DF: BCB, 2021a. Institui, no Regulamento do Pix, o Mecanismo Especial de Devolução.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Resolução BCB nº 142, de 23 de setembro de 2021</strong>. Brasília, DF: BCB, 2021b.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Instrução Normativa BCB nº 491, de 23 de julho de 2024</strong>. Brasília, DF: BCB, 2024.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Proteger-se com o BC Protege+</strong>. Brasília, DF: BCB, 2025. Disponível em: <a href="https://www.gov.br/pt-br/servicos/proteger-se-com-o-bc-protege">https://www.gov.br/pt-br/servicos/proteger-se-com-o-bc-protege</a>. Acesso em: 15 out. 2026.</li>
+<li>BARBOSA, Simone Diniz Junqueira; SILVA, Bruno Santana da. <strong>Interação humano-computador</strong>. Rio de Janeiro: Elsevier, 2010.</li>
+<li>BRASIL. Lei nº 8.078, de 11 de setembro de 1990. Dispõe sobre a proteção do consumidor e dá outras providências. <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 12 set. 1990.</li>
+<li>BRASIL. Lei nº 10.741, de 1º de outubro de 2003. Dispõe sobre o Estatuto da Pessoa Idosa e dá outras providências. <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 3 out. 2003. Redação dada pela Lei nº 14.423, de 22 de julho de 2022.</li>
+<li>BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 7 jul. 2015.</li>
+<li>BRASIL. Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD). <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 15 ago. 2018.</li>
+<li>CIALDINI, Robert B. <strong>As armas da persuasão</strong>: como influenciar e não se deixar influenciar. Tradução de Ivo Korytowski. Rio de Janeiro: Sextante, 2012.</li>
+<li>CZAJA, Sara J. <em>et al</em>. <strong>Designing for older adults</strong>: principles and creative human factors approaches. 3. ed. Boca Raton: CRC Press, 2019.</li>
+<li>FÓRUM BRASILEIRO DE SEGURANÇA PÚBLICA. <strong>Anuário Brasileiro de Segurança Pública 2025</strong>. São Paulo: FBSP, 2025.</li>
+<li>GRASSI, Paul A. <em>et al</em>. <strong>Digital identity guidelines</strong>: authentication and lifecycle management. Gaithersburg: National Institute of Standards and Technology, 2017. (NIST Special Publication 800-63B). DOI: <a href="https://doi.org/10.6028/NIST.SP.800-63b">https://doi.org/10.6028/NIST.SP.800-63b</a>.</li>
+<li>INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA. <strong>Censo Demográfico 2022</strong>: população por idade e sexo: resultados do universo. Rio de Janeiro: IBGE, 2023.</li>
+<li>INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA. <strong>Acesso à internet e à televisão e posse de telefone móvel celular para uso pessoal 2023</strong>. Rio de Janeiro: IBGE, 2024. (Pesquisa Nacional por Amostra de Domicílios Contínua).</li>
+<li>INSTITUTO DE DEFESA DE CONSUMIDORES. <strong>Golpes contra pessoas idosas</strong>: um guia com dicas de como se prevenir e o que fazer se for vítima de golpes no sistema financeiro digital. São Paulo: Idec, 2024. Disponível em: <a href="https://idec.org.br/system/files/ferramentas/idec-guia-golpes-contra-pessoas-idosas.pdf">https://idec.org.br/system/files/ferramentas/idec-guia-golpes-contra-pessoas-idosas.pdf</a>. Acesso em: 15 out. 2026.</li>
+<li>KAHNEMAN, Daniel. <strong>Rápido e devagar</strong>: duas formas de pensar. Tradução de Cássio de Arantes Leite. Rio de Janeiro: Objetiva, 2012.</li>
+<li>KANE, Lexie. <strong>Usability for older adults</strong>: challenges and changes. Fremont: Nielsen Norman Group, 8 set. 2019. Disponível em: <a href="https://www.nngroup.com/articles/usability-for-senior-citizens/">https://www.nngroup.com/articles/usability-for-senior-citizens/</a>. Acesso em: 15 out. 2026.</li>
+<li>LUGURI, Jamie; STRAHILEVITZ, Lior Jacob. Shining a light on dark patterns. <strong>Journal of Legal Analysis</strong>, Oxford, v. 13, n. 1, p. 43-109, 2021. DOI: <a href="https://doi.org/10.1093/jla/laaa006">https://doi.org/10.1093/jla/laaa006</a>.</li>
+<li>MATHUR, Arunesh <em>et al</em>. Dark patterns at scale: findings from a crawl of 11K shopping websites. <strong>Proceedings of the ACM on Human-Computer Interaction</strong>, New York, v. 3, n. CSCW, p. 1-32, 2019. DOI: <a href="https://doi.org/10.1145/3359183">https://doi.org/10.1145/3359183</a>.</li>
+<li>MELO, Karine. Golpes financeiros contra idosos cresceram 60%, diz Febraban. <strong>Agência Brasil</strong>, Brasília, DF, 2 set. 2020. Disponível em: <a href="https://agenciabrasil.ebc.com.br/economia/noticia/2020-09/golpes-financeiros-contra-idosos-cresceram-60-diz-febraban">https://agenciabrasil.ebc.com.br/economia/noticia/2020-09/golpes-financeiros-contra-idosos-cresceram-60-diz-febraban</a>. Acesso em: 15 out. 2026.</li>
+<li>MITNICK, Kevin D.; SIMON, William L. <strong>A arte de enganar</strong>: ataques de hackers: controlando o fator humano na segurança da informação. São Paulo: Pearson Makron Books, 2003.</li>
+<li>MOTA, Suzan Evellyn Nascimento da. <strong>Recomendações de boas práticas para apps de serviço de atendimento bancário à pessoa idosa</strong>. 2024. Trabalho de Conclusão de Curso (Graduação) – Universidade Federal do Amazonas, Manaus, 2024. Disponível em: <a href="http://riu.ufam.edu.br/handle/prefix/8196">http://riu.ufam.edu.br/handle/prefix/8196</a>. Acesso em: 15 out. 2026.</li>
+<li>NERI, Anita Liberalesso (org.). <strong>Desenvolvimento e envelhecimento</strong>: perspectivas biológicas, psicológicas e sociológicas. Campinas: Papirus, 2001.</li>
+<li>NIELSEN, Jakob. <strong>10 usability heuristics for user interface design</strong>. Fremont: Nielsen Norman Group, 24 abr. 1994. Atualizado em 2024. Disponível em: <a href="https://www.nngroup.com/articles/ten-usability-heuristics/">https://www.nngroup.com/articles/ten-usability-heuristics/</a>. Acesso em: 15 out. 2026.</li>
+<li>OLIVEIRA, Daniela <em>et al</em>. Dissecting spear phishing emails for older vs young adults: on the interplay of weapons of influence and life domains in predicting susceptibility to phishing. <em>In</em>: CHI CONFERENCE ON HUMAN FACTORS IN COMPUTING SYSTEMS, 2017, Denver. <strong>Proceedings</strong> [...]. New York: ACM, 2017. DOI: <a href="https://doi.org/10.1145/3025453.3025831">https://doi.org/10.1145/3025453.3025831</a>.</li>
+<li>PRESSMAN, Roger S.; MAXIM, Bruce R. <strong>Engenharia de software</strong>: uma abordagem profissional. 8. ed. Porto Alegre: AMGH, 2016.</li>
+<li>PWC BRASIL; INSTITUTO LOCOMOTIVA. <strong>O abismo digital no Brasil</strong>. São Paulo: PwC Brasil, 2022. Disponível em: <a href="https://www.pwc.com.br/pt/estudos/preocupacoes-ceos/mais-temas/2022/O_Abismo_Digital.pdf">https://www.pwc.com.br/pt/estudos/preocupacoes-ceos/mais-temas/2022/O_Abismo_Digital.pdf</a>. Acesso em: 15 out. 2026.</li>
+<li>SANTOS, Simone de Oliveira; RODRIGUES, Agatha Bhenares Alves Martins; RIBEIRO, Ítalo Mendes da Silva. Usability evaluation of mobile banking applications in the context of the elderly in a city of Ceará. <em>In</em>: SIMPÓSIO BRASILEIRO SOBRE FATORES HUMANOS EM SISTEMAS COMPUTACIONAIS (IHC), 22., 2023, Maceió. <strong>Anais</strong> [...]. Porto Alegre: Sociedade Brasileira de Computação, 2023.</li>
+<li>SHNEIDERMAN, Ben <em>et al</em>. <strong>Designing the user interface</strong>: strategies for effective human-computer interaction. 6. ed. Boston: Pearson, 2016.</li>
+<li>THALER, Richard H.; SUNSTEIN, Cass R. <strong>Nudge</strong>: como tomar melhores decisões sobre saúde, dinheiro e felicidade. Rio de Janeiro: Objetiva, 2019.</li>
+<li>WHITTEN, Alma; TYGAR, J. D. Why Johnny can’t encrypt: a usability evaluation of PGP 5.0. <em>In</em>: USENIX SECURITY SYMPOSIUM, 8., 1999, Washington, DC. <strong>Proceedings</strong> [...]. Berkeley: USENIX Association, 1999. p. 169-184.</li>
+<li>WORLD WIDE WEB CONSORTIUM. <strong>Web Content Accessibility Guidelines (WCAG) 2.2</strong>. W3C Recommendation. [<em>S. l.</em>]: W3C, 2024. Disponível em: <a href="https://www.w3.org/TR/WCAG22/">https://www.w3.org/TR/WCAG22/</a>. Acesso em: 15 out. 2026.</li>
+<li>ZABINI, Thaina Delgado. <strong>UX case</strong>: design digital para idosos. 2021. Trabalho de Conclusão de Curso (Bacharelado em Design) – Faculdade de Arquitetura, Artes, Comunicação e Design, Universidade Estadual Paulista, Bauru, 2021.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2 class="foot-h">SOBRE ESTE GUIA</h2>
+        <p style="font-size:.88rem;color:var(--ink-2);max-width:40ch;">Artefato desenvolvido por meio de <em>Design Science Research</em>, a partir de pesquisa bibliográfica e documental em Sistemas de Informação, Interação Humano-Computador, segurança da informação e psicologia comportamental.</p>
+      </div>
+      <div>
+        <h2 class="foot-h">REFERENCIAL PRINCIPAL</h2>
+        <ul>
+          <li>Nielsen (1994) — heurísticas de usabilidade</li>
+          <li>Shneiderman <em>et al.</em> (2016) — regras de ouro</li>
+          <li>World Wide Web Consortium (2024) — WCAG 2.2</li>
+          <li>Kahneman (2012); Cialdini (2012)</li>
+          <li>Czaja <em>et al.</em> (2019) — design para idosos</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h">CANAIS DE DENÚNCIA E APOIO</h2>
+        <ul>
+          <li>Central de atendimento oficial do banco (número no verso do cartão)</li>
+          <li>consumidor.gov.br e Procon</li>
+          <li>Disque 100 — Direitos Humanos</li>
+          <li>Boletim de Ocorrência eletrônico</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">Guia metodológico produzido como Trabalho de Conclusão de Curso — Bacharelado em Sistemas de Informação, IFSULDEMINAS Campus Machado, 2026. Conteúdo com finalidade acadêmica e de referência técnica; não substitui auditoria de segurança da informação, teste com usuários ou avaliação jurídica de conformidade.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var store = {
+    get:function(k){ try{ return window.localStorage.getItem(k); }catch(e){ return null; } },
+    set:function(k,v){ try{ window.localStorage.setItem(k,v); }catch(e){} },
+    del:function(k){ try{ window.localStorage.removeItem(k); }catch(e){} }
+  };
+  // tamanho do texto
+  var sizeBtns = document.querySelectorAll('[data-scale]');
+  function applyScale(s){
+    document.documentElement.style.setProperty('--scale', s);
+    sizeBtns.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-scale')===String(s) ? 'true':'false'); });
+  }
+  var saved = store.get('dss-scale'); if(saved){ applyScale(saved); }
+  sizeBtns.forEach(function(b){ b.addEventListener('click', function(){ var s=b.getAttribute('data-scale'); applyScale(s); store.set('dss-scale', s); }); });
+  // menu móvel
+  var mb = document.querySelector('.menu-btn'), nav = document.getElementById('menu');
+  mb.addEventListener('click', function(){ var o = nav.classList.toggle('open'); mb.setAttribute('aria-expanded', o?'true':'false'); });
+  nav.addEventListener('click', function(e){ if(e.target.tagName==='A'){ nav.classList.remove('open'); mb.setAttribute('aria-expanded','false'); } });
+  // checklist
+  var boxes = document.querySelectorAll('.cl-item input'), total = boxes.length;
+  var bar = document.getElementById('pbar'), cnt = document.getElementById('pcount');
+  function upd(){ var c=0; boxes.forEach(function(b){ if(b.checked) c++; }); bar.style.width=(total? (100*c/total):0)+'%'; cnt.textContent=c+' de '+total+' itens atendidos'; }
+  boxes.forEach(function(b){ if(store.get('dss-'+b.dataset.key)==='1'){ b.checked=true; } b.addEventListener('change', function(){ if(b.checked){ store.set('dss-'+b.dataset.key,'1'); } else { store.del('dss-'+b.dataset.key); } upd(); }); });
+  document.getElementById('ck-reset').addEventListener('click', function(){ boxes.forEach(function(b){ b.checked=false; store.del('dss-'+b.dataset.key); }); upd(); });
+  document.getElementById('ck-print').addEventListener('click', function(){ document.querySelectorAll('.cl-group').forEach(function(d){ d.open=true; }); window.print(); });
+  upd();
+})();
+</script>
+</body>
+</html>
