@@ -236,6 +236,7 @@ h1, h2, h3, h4 { margin: 0; text-wrap: balance; line-height: 1.2; }
 .tool-btn:hover { background: var(--sheet-2); }
 .tool-btn[aria-expanded="true"] { background: var(--ink); color: #fff; }
 .tool-btn svg { width: 1.15rem; height: 1.15rem; }
+.tool-btn .aa { font-size: 1rem; letter-spacing: -.02em; }
 .menu-btn { display: none; }
 html:not(.js) .textsize { display: none; }
 
@@ -265,6 +266,7 @@ html:not(.js) .textsize { display: none; }
 .top.is-tiny .brand-name b { white-space: normal; overflow: visible; font-size: .85rem; line-height: 1.1; }
 .top.is-tiny .topbar { gap: .6rem; padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px)); }
 .top.is-tiny .menu-btn .lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.top.is-tiny .tool-btn .ts-lbl { display: none; }
 
 /* ---------- Hero ---------- */
 .hero { padding-block: 3.5rem 3rem; }
