@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia de Interfaces Financeiras</title>
+<meta name="description" content="Guia com 16 diretrizes, padrões de interface e checklist para criar apps financeiros acessíveis ao público idoso e resistentes à engenharia social.">
+<meta name="author" content="Leonardo Brandão; Endrio Emanuel Ferreira Soares">
+<meta name="keywords" content="interação humano-computador, acessibilidade, engenharia social, fraudes financeiras, pessoa idosa, WCAG 2.2, guia de interfaces">
+<meta name="theme-color" content="#14181f">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://guia-interfaces-financeiras.vercel.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Guia de Interfaces Financeiras">
+<meta property="og:title" content="Guia de Interfaces Financeiras — o golpe não invade o sistema, ele passa pela sua interface">
+<meta property="og:description" content="16 diretrizes, 8 vetores de fraude mapeados, padrões antes e depois e um checklist de 26 itens para interfaces financeiras acessíveis ao público idoso e resistentes a golpes.">
+<meta property="og:url" content="https://guia-interfaces-financeiras.vercel.app/">
+<meta property="og:image" content="https://guia-interfaces-financeiras.vercel.app/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Guia de Interfaces Financeiras: o golpe não invade o sistema, ele passa pela sua interface.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guia de Interfaces Financeiras">
+<meta name="twitter:description" content="Interfaces financeiras acessíveis ao público idoso e resistentes à engenharia social.">
+<meta name="twitter:image" content="https://guia-interfaces-financeiras.vercel.app/assets/img/og-image.png">
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;0,800;1,400&family=Atkinson+Hyperlegible+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="/assets/css/styles.css?v=15">
+<script src="/assets/js/boot.js?v=15"></script>
+<script src="/assets/js/app.js?v=15" defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Guia de Interfaces Financeiras",
+      "url": "https://guia-interfaces-financeiras.vercel.app/",
+      "inLanguage": "pt-BR"
+    },
+    {
+      "@type": "Thesis",
+      "name": "Guia para o desenvolvimento de interfaces financeiras acessíveis ao público idoso e resistentes à engenharia social",
+      "inSupportOf": "Bacharelado em Sistemas de Informação",
+      "inLanguage": "pt-BR",
+      "datePublished": "2026",
+      "author": [
+        { "@type": "Person", "name": "Leonardo Brandão" },
+        { "@type": "Person", "name": "Endrio Emanuel Ferreira Soares" }
+      ],
+      "contributor": { "@type": "Person", "name": "Daniela Augusta Guimarães Dias", "jobTitle": "Orientadora" },
+      "sourceOrganization": {
+        "@type": "EducationalOrganization",
+        "name": "Instituto Federal de Educação, Ciência e Tecnologia do Sul de Minas Gerais — Campus Machado"
+      },
+      "keywords": "interação humano-computador; acessibilidade; engenharia social; fraudes financeiras; pessoa idosa",
+      "abstract": "Guia metodológico, em formato de website, que orienta desenvolvedores, designers e equipes de produto na criação de interfaces financeiras acessíveis ao público idoso e estruturalmente mais resistentes a golpes baseados em engenharia social."
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" class="visually-hidden" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#14181f"/><rect x="17" y="10" width="26" height="44" rx="5" fill="#fff"/><rect x="21" y="26" width="18" height="7" rx="1" fill="#ffe14d"/><rect x="21" y="37" width="12" height="3" rx="1.5" fill="#b9bfc9"/><rect x="21" y="17" width="10" height="3" rx="1.5" fill="#b9bfc9"/><circle cx="45" cy="15" r="8" fill="#d92d20" stroke="#14181f" stroke-width="3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 10v4.5M12 17.2v.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3h3l1.5 4.5-2 1.3a12 12 0 0 0 6.1 6.1l1.3-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.2 2 2 0 0 1 6.6 3Z" fill="currentColor"/></symbol>
+  <symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 11v3.5c0 2.2-.6 4.2-1.7 6M8.5 9.6A3.5 3.5 0 0 1 15.5 11v2.2c0 2.4-.5 4.8-1.4 7M5.6 8.2A7 7 0 0 1 19 11v1.5M5 12v1.5c0 2-.4 3.7-1 5.3M17.5 18c.6-1.6 1-3.3 1.2-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="top">
+  <div class="topbar">
+    <a class="brand" href="#inicio">
+      <svg aria-hidden="true"><use href="#i-logo"/></svg>
+      <span class="brand-name"><b>Guia de Interfaces Financeiras</b><small>acessíveis e resistentes a golpes</small></span>
+    </a>
+    <nav class="primary" id="menu" aria-label="Seções do guia">
+      <ul>
+        <li><a href="#problema">Problema</a></li>
+        <li><a href="#usuario">Usuário sênior</a></li>
+        <li><a href="#golpes">Golpes</a></li>
+        <li><a href="#diretrizes">Diretrizes</a></li>
+        <li><a href="#padroes">Padrões</a></li>
+        <li><a href="#ciclo">Ciclo</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#pesquisa">A pesquisa</a></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <div class="textsize">
+        <button class="tool-btn" type="button" id="ts-btn" aria-expanded="false" aria-controls="ts-panel"><span class="visually-hidden">Tamanho do </span>Texto</button>
+        <div class="ts-panel" id="ts-panel" hidden>
+          <p id="ts-title">Tamanho do texto</p>
+          <div class="seg" role="group" aria-labelledby="ts-title">
+            <button type="button" data-scale="1" aria-pressed="true"><span class="s1">Padrão</span></button>
+            <button type="button" data-scale="1.15" aria-pressed="false"><span class="s2">Maior</span></button>
+            <button type="button" data-scale="1.3" aria-pressed="false"><span class="s3">Máximo</span></button>
+          </div>
+          <p class="small">A página se reorganiza para manter tudo fácil de ler e de tocar.</p>
+        </div>
+      </div>
+      <button class="tool-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu"><svg aria-hidden="true"><use href="#i-menu"/></svg><span class="lbl">Menu</span></button>
+    </div>
+  </div>
+  <div class="read-progress" aria-hidden="true"></div>
+</header>
+
+<main id="conteudo" tabindex="-1">
+
+  <div class="wrap hero" id="inicio">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Guia de projeto · IHC e segurança comportamental</p>
+        <h1>O golpe não invade o sistema. <span class="hl">Ele passa pela sua interface.</span></h1>
+        <p class="lede">Um golpista raramente quebra criptografia. Ele explora <span class="pin" aria-hidden="true">1</span> uma confirmação ambígua, <span class="pin" aria-hidden="true">2</span> uma sigla não explicada, <span class="pin" aria-hidden="true">3</span> um botão de cancelar mal posicionado ou <span class="pin" aria-hidden="true">4</span> a ausência de um canal oficial verificável. Este é um guia técnico para equipes que constroem sites, aplicativos e plataformas financeiras — sobre como projetar para o usuário sênior sem abrir brechas para a engenharia social.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#diretrizes">Ver as 16 diretrizes <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--line" href="#checklist">Abrir o checklist</a>
+        </div>
+      </div>
+
+      <figure class="board" aria-labelledby="board-cap">
+        <div class="phone" role="img" aria-label="Tela ilustrativa de transferência com quatro falhas marcadas: botão Confirmar genérico, sigla TED D+1 sem explicação, botão cancelar pequeno ao lado do confirmar e uma ligação da suposta central do banco sem forma de verificação no app.">
+          <div class="ph-status"><span class="ph-call"><svg><use href="#i-phone"/></svg>Em ligação 06:41</span><span class="bat"></span></div>
+          <div class="ph-bar"><svg><use href="#i-back"/></svg>Transferência</div>
+          <div class="ph-body">
+            <div class="ph-callcard a"><span class="pin">4</span><svg><use href="#i-phone"/></svg><span><b>“Central do banco”</b>Número sem verificação no app</span></div>
+            <span class="ph-lbl">Valor</span>
+            <span class="ph-amt">R$ 4.000,00</span>
+            <div class="ph-rows a"><span class="pin">2</span><div><span>Tipo</span><span>TED · D+1</span></div><div><span>Para</span><span>Conta 0042-•</span></div></div>
+            <span class="ph-fill"></span>
+            <div class="m-row"><span class="m-btn flat a"><span class="pin">3</span>cancelar</span><span class="m-btn bad a"><span class="pin">1</span>Confirmar</span></div>
+          </div>
+        </div>
+        <ol class="board-legend" aria-label="Falhas marcadas na tela">
+          <li><span class="pin" aria-hidden="true">1</span>Confirmação ambígua</li>
+          <li><span class="pin" aria-hidden="true">2</span>Sigla não explicada</li>
+          <li><span class="pin" aria-hidden="true">3</span>Cancelar mal posicionado</li>
+          <li><span class="pin" aria-hidden="true">4</span>Sem canal oficial verificável</li>
+        </ol>
+        <figcaption class="board-caption" id="board-cap">Tela ilustrativa: as quatro brechas que o golpista explora, numa única transferência.</figcaption>
+      </figure>
+    </div>
+
+    <div class="facts-strip">
+      <div class="fact"><b>+60%</b><span>nas tentativas de golpes financeiros contra idosos no início da pandemia, segundo a Febraban</span><span class="src">Melo (2020)</span></div>
+      <div class="fact"><b>51,6%</b><span>das pessoas que não usavam a internet no Brasil em 2023 tinham 60 anos ou mais</span><span class="src">Instituto Brasileiro de Geografia e Estatística (2024)</span></div>
+      <div class="fact"><b>281 mil</b><span>registros de estelionato por meio eletrônico em 2024, alta de 17% sobre 2023</span><span class="src">Fórum Brasileiro de Segurança Pública (2025)</span></div>
+    </div>
+  </div>
+
+  <section id="problema" aria-labelledby="h-problema">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 01</b> · O problema</p>
+        <h2 id="h-problema">O usuário médio não existe</h2>
+        <p class="lede">Interfaces bancárias costumam ser desenhadas para um perfil de alta agilidade cognitiva e fluência digital. Esse perfil não representa boa parte do público idoso — que já soma mais de 32 milhões de pessoas no Brasil (Instituto Brasileiro de Geografia e Estatística, 2023) — e o descompasso entre a interface e quem realmente a usa abre caminho para a fraude.</p>
+      </div>
+
+      <div class="problem">
+        <ul class="premises">
+          <li><h3>Acesso</h3><p>Pessoas com 60 anos ou mais formam a maior parcela de quem ainda não usa a internet, e muitas acessam apenas por smartphone, com aparelhos de entrada e conexão instável (Instituto Brasileiro de Geografia e Estatística, 2024; PwC Brasil; Instituto Locomotiva, 2022).</p></li>
+          <li><h3>Modelo mental</h3><p>Quando o comportamento do sistema não corresponde ao que o usuário espera, a confiança se desgasta — e ele fica mais receptivo a quem se apresenta como “suporte técnico” ou “funcionário do banco”.</p></li>
+          <li><h3>Consequência</h3><p>Um golpe bem-sucedido pode comprometer toda a renda de aposentadoria da vítima. O custo de um design confuso, aqui, não é um carrinho abandonado — é patrimônio.</p></li>
+        </ul>
+
+        <div class="sheet data-sheet">
+          <div>
+            <h3>Uso da internet por pessoas com 60 anos ou mais</h3>
+            <div class="bars" role="img" aria-label="Uso da internet por idosos: 24,7% em 2016 e 66,0% em 2023">
+              <div class="bar-row"><span class="yr">2016</span><span class="bar-track"><span class="bar-fill w247"></span></span><span class="val">24,7%</span></div>
+              <div class="bar-row"><span class="yr">2023</span><span class="bar-track"><span class="bar-fill w660"></span></span><span class="val">66,0%</span></div>
+            </div>
+            <p class="small mt-s">O acesso cresceu, mas o grupo ainda é a maioria entre quem não usa a rede (Instituto Brasileiro de Geografia e Estatística, 2024).</p>
+          </div>
+          <div class="data-pair">
+            <div><b>15,8%</b><span>da população tem 60 anos ou mais: 32,1 milhões de pessoas no Censo 2022 (Instituto Brasileiro de Geografia e Estatística, 2023).</span></div>
+            <div><b>58%</b><span>depende do celular como único dispositivo de conexão, e só cerca de um quinto tem acesso de qualidade (PwC Brasil; Instituto Locomotiva, 2022).</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="usuario" aria-labelledby="h-usuario">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 02</b> · Perfil do usuário sênior</p>
+        <h2 id="h-usuario">Para quem você está de fato projetando</h2>
+        <p class="lede">As mudanças sensoriais, motoras e cognitivas do envelhecimento não são uma ruptura, mas uma reconfiguração previsível de capacidades (Neri, 2001; Czaja <em>et al.</em>, 2019). Traduzidas em requisitos de interface, elas se parecem com isto:</p>
+      </div>
+
+      <ul class="abilities">
+        <li class="ability">
+          <div class="specimen" aria-hidden="true"><div class="sp-contrast"><span></span><span></span><span></span></div></div>
+          <div><span class="tag">Visão</span><h3>Contraste e tamanho</h3><p>Catarata e perda de sensibilidade ao contraste tornam textos pequenos e claros difíceis de ler; ícones sem rótulo aumentam erros de interpretação.</p><p class="src">Anjos; Gontijo (2015); Kane (2019)</p></div>
+        </li>
+        <li class="ability">
+          <div class="specimen" aria-hidden="true"><div class="sp-code"><div class="boxes"><i>4</i><i>8</i><i>?</i><i></i><i></i><i></i></div><small>código recebido por SMS</small></div></div>
+          <div><span class="tag">Memória de trabalho</span><h3>Atenção dividida</h3><p>Fluxos que exigem alternar entre aplicativos — copiar um código recebido por SMS, por exemplo — sobrecarregam uma capacidade que diminui com a idade.</p><p class="src">Neri (2001); Zabini (2021)</p></div>
+        </li>
+        <li class="ability">
+          <div class="specimen" aria-hidden="true"><div class="sp-touch"><i>Cancelar</i><i>Confirmar</i><b></b></div></div>
+          <div><span class="tag">Motricidade</span><h3>Precisão de toque</h3><p>Áreas de toque pequenas e botões próximos aumentam o risco de acionar a ação errada — especialmente em decisões irreversíveis.</p><p class="src">Kane (2019); Santos; Rodrigues; Ribeiro (2023)</p></div>
+        </li>
+        <li class="ability">
+          <div class="specimen" aria-hidden="true"><div class="sp-words"><span>TED</span><span>DOC</span><span>CDB</span></div></div>
+          <div><span class="tag">Letramento</span><h3>Vocabulário técnico</h3><p>Siglas sem explicação — TED, DOC, CDB — não economizam espaço: criam pontos cegos que um golpista preenche com falsa autoridade.</p><p class="src">Anjos; Gontijo (2015); Mota (2024)</p></div>
+        </li>
+        <li class="ability">
+          <div class="specimen" aria-hidden="true"><div class="sp-fear">Erro 0x45<small>operação inválida</small></div></div>
+          <div><span class="tag">Emoção e confiança</span><h3>Medo de errar</h3><p>O medo é apontado como a principal barreira ao uso de aplicativos bancários por idosos, que tendem a culpar a si mesmos pelos erros da interface.</p><p class="src">Feliciano; Frogeri (2018); Kane (2019)</p></div>
+        </li>
+      </ul>
+
+      <div class="note"><span class="mk" aria-hidden="true"></span><div><p><strong>Projetar para o envelhecimento beneficia muito mais gente.</strong> Entre os 25 e os 60 anos, a capacidade de usar websites diminui cerca de 0,8% ao ano (Kane, 2019).</p></div></div>
+
+      <div class="sub-head"><h3>Nove categorias de vulnerabilidade</h3><p class="small">Resultado da análise de conteúdo da pesquisa (Bardin, 2016)</p></div>
+      <div class="vuln">
+        <div class="vuln-col">
+          <header><h4>Usabilidade e acessibilidade</h4><p>Problemas clássicos, já documentados nos trabalhos relacionados</p></header>
+          <ol>
+            <li><span class="cid">C1</span><div><strong>Barreiras sensoriais e motoras</strong><span class="impl">Parâmetros mínimos de tamanho, contraste e área de toque.</span><span class="ev">Anjos; Gontijo (2015); Kane (2019); Santos; Rodrigues; Ribeiro (2023)</span></div></li>
+            <li><span class="cid">C2</span><div><strong>Carga cognitiva e memória</strong><span class="impl">Fluxos curtos, uma decisão por tela, informação sempre visível.</span><span class="ev">Neri (2001); Czaja <em>et al.</em> (2019); Zabini (2021)</span></div></li>
+            <li><span class="cid">C3</span><div><strong>Medo de errar e autoatribuição de culpa</strong><span class="impl">Saídas claras, reversibilidade e mensagens que não culpem.</span><span class="ev">Feliciano; Frogeri (2018); Kane (2019)</span></div></li>
+            <li><span class="cid">C4</span><div><strong>Linguagem e terminologia</strong><span class="impl">Linguagem simples e termos explicados.</span><span class="ev">Anjos; Gontijo (2015); Mota (2024)</span></div></li>
+            <li><span class="cid">C5</span><div><strong>Inconsistência entre versões</strong><span class="impl">Preservar posição e rótulo das funções; ajuda consistente.</span><span class="ev">Santos; Rodrigues; Ribeiro (2023)</span></div></li>
+          </ol>
+        </div>
+        <div class="vuln-col">
+          <header><h4>Segurança comportamental</h4><p>A dimensão que costuma ficar de fora das avaliações de usabilidade</p></header>
+          <ol start="6">
+            <li><span class="cid">C6</span><div><strong>Exploração psicológica</strong><span class="impl">Interrupções contextuais e atrito proporcional ao risco.</span><span class="ev">Kahneman (2012); Cialdini (2012); Oliveira <em>et al.</em> (2017)</span></div></li>
+            <li><span class="cid">C7</span><div><strong>Segurança pouco usável</strong><span class="impl">Autenticação acessível e resistente a páginas falsas.</span><span class="ev">Adams; Sasse (1999); Grassi <em>et al.</em> (2017)</span></div></li>
+            <li><span class="cid">C8</span><div><strong>Interfaces manipulativas</strong><span class="impl">Proibição de padrões enganosos em produtos financeiros.</span><span class="ev">Mathur <em>et al.</em> (2019); Luguri; Strahilevitz (2021)</span></div></li>
+            <li><span class="cid">C9</span><div><strong>Dependência de terceiros e canal oficial</strong><span class="impl">Canal oficial verificável e rede de apoio opcional.</span><span class="ev">Zabini (2021); Instituto de Defesa de Consumidores (2024)</span></div></li>
+          </ol>
+        </div>
+      </div>
+      <div class="note"><span class="mk" aria-hidden="true"></span><div><p><strong>As duas dimensões se reforçam.</strong> O medo de errar (C3) e a dependência de terceiros (C9) aumentam a receptividade a falsos atendentes, enquanto a terminologia obscura (C4) cria o vácuo de compreensão que a falsa autoridade (C6) ocupa.</p></div></div>
+    </div>
+  </section>
+
+  <section id="golpes" aria-labelledby="h-golpes">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 03</b> · Vetores de fraude</p>
+        <h2 id="h-golpes">Cada golpe explora uma decisão de design</h2>
+        <p class="lede">A pergunta certa não é “como o idoso pode se proteger”. É: <span class="hl">que decisão de interface tornou esse golpe possível — e como o fluxo poderia tê-lo impedido?</span></p>
+      </div>
+
+      <div class="psych">
+        <div class="sheet">
+          <p class="eyebrow">Psicologia da decisão</p>
+          <h3>O golpe mantém a vítima no Sistema 1</h3>
+          <div class="sys">
+            <div class="s1"><b>SISTEMA 1</b>Rápido, intuitivo, emocional e automático</div>
+            <div class="s2"><b>SISTEMA 2</b>Lento, analítico, deliberativo e com esforço</div>
+          </div>
+          <p>Ao induzir urgência, medo ou entusiasmo, o criminoso reduz a chance de o pensamento crítico ser ativado antes da ação (Kahneman, 2012).</p>
+        </div>
+        <div class="sheet">
+          <p class="eyebrow">Persuasão</p>
+          <h3>O repertório do golpista</h3>
+          <ul class="tags" aria-label="Princípios de persuasão de Cialdini">
+            <li class="tag">Reciprocidade</li><li class="tag">Compromisso e coerência</li><li class="tag">Aprovação social</li><li class="tag">Afeição</li><li class="tag">Autoridade</li><li class="tag">Escassez</li>
+          </ul>
+          <p>A autoridade suprime o julgamento crítico, a escassez pressiona por decisões imediatas e a afeição está na base do golpe do falso familiar (Cialdini, 2012).</p>
+        </div>
+        <div class="sheet">
+          <p class="eyebrow">Evidência</p>
+          <h3>A idade modula a suscetibilidade</h3>
+          <ul class="facts">
+            <li>Mais de 40% dos participantes clicaram em ao menos um e-mail simulado de <em>spear phishing</em> em 21 dias.</li>
+            <li>Idosos responderam mais à reciprocidade; a autoridade foi eficaz para todas as idades.</li>
+            <li>Idosos demonstraram menor percepção da própria suscetibilidade.</li>
+          </ul>
+          <p class="src">Oliveira <em>et al.</em> (2017), com 158 participantes</p>
+        </div>
+      </div>
+
+      <div class="sub-head"><h3>Matriz de rastreabilidade: golpe → falha → diretriz</h3><p class="small">Cada diretriz listada leva à sua descrição completa.</p></div>
+
+      <div class="scam-grid" id="matriz">
+        <article class="sheet scam" id="golpe-1" data-golpe="Falsa central" data-code="V01">
+          <div class="scam-head"><p class="eyebrow">Vetor 01 de 08</p><h3>Falsa central (vishing)</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag tag--risk">Autoridade</li><li class="tag tag--risk">Medo</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Ligação que simula o banco e pede dados, código ou uma transferência “de teste”.</dd></div><div><dt>Falha de interface explorada</dt><dd>Ausência de canal oficial verificável; transação concluída sem nenhuma pergunta sobre o contexto.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>O app permite confirmar, de dentro dele, se a ligação é do banco — e pergunta se há alguém ao telefone antes de uma transferência atípica?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D11"><span class="xc">D11</span><span class="xn">Interrupção contextual antigolpe</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D12"><span class="xc">D12</span><span class="xn">Canal oficial verificável e mensagens inequívocas</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D10"><span class="xc">D10</span><span class="xn">Fricção proporcional ao risco</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+        <article class="sheet scam" id="golpe-2" data-golpe="Acesso remoto" data-code="V02">
+          <div class="scam-head"><p class="eyebrow">Vetor 02 de 08</p><h3>Falso funcionário com acesso remoto</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag tag--risk">Autoridade</li><li class="tag tag--risk">Confiança</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Induz a instalação de aplicativo de acesso remoto e opera o celular da vítima.</dd></div><div><dt>Falha de interface explorada</dt><dd>Operações sensíveis permitidas com tela compartilhada ou controle remoto ativo.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>O fluxo detecta compartilhamento de tela ou acesso remoto e interrompe a operação?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D13"><span class="xc">D13</span><span class="xn">Detecção de contexto de manipulação técnica</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D12"><span class="xc">D12</span><span class="xn">Canal oficial verificável e mensagens inequívocas</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D11"><span class="xc">D11</span><span class="xn">Interrupção contextual antigolpe</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+        <article class="sheet scam" id="golpe-3" data-golpe="Falso familiar" data-code="V03">
+          <div class="scam-head"><p class="eyebrow">Vetor 03 de 08</p><h3>Falso familiar (WhatsApp)</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag tag--risk">Afinidade</li><li class="tag tag--risk">Urgência</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Perfil clonado ou número novo pede um Pix urgente em nome de um parente.</dd></div><div><dt>Falha de interface explorada</dt><dd>Pix imediato a recebedor nunca usado; nome do recebedor pouco destacado na revisão.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>O nome real do recebedor aparece em destaque e um primeiro envio de valor alto passa por etapa extra?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D6"><span class="xc">D6</span><span class="xn">Revisão explícita antes de transações</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D10"><span class="xc">D10</span><span class="xn">Fricção proporcional ao risco</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D11"><span class="xc">D11</span><span class="xn">Interrupção contextual antigolpe</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+        <article class="sheet scam" id="golpe-4" data-golpe="Falso motoboy" data-code="V04">
+          <div class="scam-head"><p class="eyebrow">Vetor 04 de 08</p><h3>Falso motoboy</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag tag--risk">Confiança</li><li class="tag tag--risk">Aversão à perda</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Convence a vítima a entregar o cartão “clonado” a um portador.</dd></div><div><dt>Falha de interface explorada</dt><dd>Mensagem de segurança ausente ou escondida; bloqueio de cartão difícil de encontrar.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>O app lembra que o banco nunca busca cartões e oferece bloqueio em um toque?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D12"><span class="xc">D12</span><span class="xn">Canal oficial verificável e mensagens inequívocas</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D8"><span class="xc">D8</span><span class="xn">Recuperação de erros e contestação em um toque</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+        <article class="sheet scam" id="golpe-5" data-golpe="Phishing e smishing" data-code="V05">
+          <div class="scam-head"><p class="eyebrow">Vetor 05 de 08</p><h3>Phishing e smishing</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag tag--risk">Urgência</li><li class="tag tag--risk">Curiosidade</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Link por SMS, e-mail ou mensagem leva a página falsa que captura credenciais.</dd></div><div><dt>Falha de interface explorada</dt><dd>Comunicação oficial indistinguível de falsificações; credenciais digitáveis em qualquer página.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>O usuário distingue uma comunicação oficial sem precisar entender domínios, e a autenticação resiste a páginas falsas?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D12"><span class="xc">D12</span><span class="xn">Canal oficial verificável e mensagens inequívocas</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D9"><span class="xc">D9</span><span class="xn">Autenticação e tempo acessíveis</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+        <article class="sheet scam" id="golpe-6" data-golpe="Consignado não autorizado" data-code="V06">
+          <div class="scam-head"><p class="eyebrow">Vetor 06 de 08</p><h3>Consignado não autorizado</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag tag--risk">Desinformação</li><li class="tag tag--risk">Inércia</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Dados vazados são usados para contratar crédito sem anuência do titular.</dd></div><div><dt>Falha de interface explorada</dt><dd>Contratação sem notificação imediata; contestação longa e difícil.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>Uma nova contratação gera notificação impossível de ignorar, com contestação em um toque?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D14"><span class="xc">D14</span><span class="xn">Notificação de eventos sensíveis</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D8"><span class="xc">D8</span><span class="xn">Recuperação de erros e contestação em um toque</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D16"><span class="xc">D16</span><span class="xn">Ausência de padrões enganosos</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+        <article class="sheet scam" id="golpe-7" data-golpe="Seguros e tarifas" data-code="V07">
+          <div class="scam-head"><p class="eyebrow">Vetor 07 de 08</p><h3>Seguros e tarifas não contratados</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag tag--risk">Inércia</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Serviços embutidos em contratações ou cobrados sem pedido.</dd></div><div><dt>Falha de interface explorada</dt><dd>Opções pré-marcadas e termos obscuros.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>Algum serviço vem pré-selecionado ou descrito com jargão?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D16"><span class="xc">D16</span><span class="xn">Ausência de padrões enganosos</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D3"><span class="xc">D3</span><span class="xn">Linguagem simples e termos explicados</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D6"><span class="xc">D6</span><span class="xn">Revisão explícita antes de transações</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+        <article class="sheet scam" id="golpe-8" data-golpe="Erro operacional" data-code="V08">
+          <div class="scam-head"><p class="eyebrow">Vetor 08 de 08</p><h3>Erro operacional (não intencional)</h3><ul class="tags" aria-label="Gatilhos psicológicos"><li class="tag">Sem gatilho: falha da interface</li></ul></div>
+          <dl><div><dt>Como opera</dt><dd>Envio de valor ou para destinatário errado.</dd></div><div><dt>Falha de interface explorada</dt><dd>Botões próximos e de mesmo peso; revisão pobre; confirmação ambígua.</dd></div></dl>
+          <div class="question"><span class="eyebrow">Pergunta de projeto</span><p>A revisão mostra recebedor e valor por extenso, e a confirmação é inequívoca e permanente?</p></div>
+          <div class="refs-box"><p class="xref-label">Diretrizes que mitigam</p><ul class="xref"><li><a href="#D2"><span class="xc">D2</span><span class="xn">Alvos de toque amplos e separação de ações opostas</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D6"><span class="xc">D6</span><span class="xn">Revisão explícita antes de transações</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D7"><span class="xc">D7</span><span class="xn">Confirmação síncrona e comprovante permanente</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D8"><span class="xc">D8</span><span class="xn">Recuperação de erros e contestação em um toque</span><span class="xa" aria-hidden="true">→</span></a></li></ul></div>
+        </article>
+      </div>
+
+      <div class="note"><span class="mk" aria-hidden="true"></span><div>
+        <p><strong>Poucas falhas se repetem em vários golpes.</strong> A ausência de canal oficial verificável aparece em quatro vetores, e a falta de atrito em operações atípicas, em três. Corrigi-las tem efeito multiplicado.</p>
+        <p>Ao virar pergunta de projeto, cada golpe pode entrar na especificação de requisitos e nos critérios de aceite do software.</p>
+      </div></div>
+      <p class="src mt-s">O erro operacional foi incluído por compartilhar as mesmas falhas de interface e produzir prejuízos semelhantes. Fontes: Melo (2020); Instituto de Defesa de Consumidores (2024); Cialdini (2012); Oliveira <em>et al.</em> (2017); Zabini (2021).</p>
+    </div>
+  </section>
+
+  <section id="diretrizes" aria-labelledby="h-diretrizes">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 04</b> · Diretrizes</p>
+        <h2 id="h-diretrizes">Dezesseis diretrizes de projeto</h2>
+        <p class="lede">Cada diretriz traz o que fazer, por que fazer (com a evidência que a sustenta) e como verificar — com o critério WCAG 2.2, a heurística de Nielsen ou a regra de Shneiderman correspondente. Os grupos acompanham a sequência da interação: perceber, compreender, agir com controle e ser protegido.</p>
+      </div>
+
+      <div class="filter">
+        <p class="eyebrow" id="filter-title">Mostrar diretrizes do grupo</p>
+        <ul class="opts" aria-labelledby="filter-title">
+          <li><button type="button" class="opt" data-filter="all" aria-pressed="true"><small>D1–D16</small>Todos os grupos</button></li>
+          <li><button type="button" class="opt" data-filter="a" aria-pressed="false"><small>A · D1–D2</small>Percepção</button></li>
+          <li><button type="button" class="opt" data-filter="b" aria-pressed="false"><small>B · D3–D5</small>Compreensão</button></li>
+          <li><button type="button" class="opt" data-filter="c" aria-pressed="false"><small>C · D6–D9</small>Ação e controle</button></li>
+          <li><button type="button" class="opt" data-filter="d" aria-pressed="false"><small>D · D10–D16</small>Proteção antifraude</button></li>
+        </ul>
+        <p class="filter-status" id="filter-status" aria-live="polite">Mostrando as 16 diretrizes.</p>
+      </div>
+
+      <div class="dgroup" data-group="a">
+        <div class="dgroup-head"><span class="gl" aria-hidden="true">A</span><h3>Percepção</h3><p>Garantir que a informação seja vista e alcançada.</p></div>
+        <div class="dgrid">
+          <article class="sheet dcard" id="D1">
+            <div class="dcard-head"><span class="did">D1</span><h4>Legibilidade, contraste e ampliação</h4></div>
+            <p>Adotar corpo de texto de no mínimo 16 px (ou equivalente nas plataformas móveis), contraste de pelo menos 4,5:1 para texto e 3:1 para componentes de interface, suporte à ampliação de até 200% sem perda de conteúdo e alertas que não dependam apenas de cor.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Alterações visuais do envelhecimento, como catarata e menor sensibilidade ao contraste (Czaja <em>et al.</em>, 2019; Anjos; Gontijo, 2015); textos pequenos e claros demais relatados em testes com idosos (Kane, 2019).</dd></div><div><dt>Como verificar</dt><dd>WCAG 2.2 — 1.4.1, 1.4.3, 1.4.4 e 1.4.11.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D2">
+            <div class="dcard-head"><span class="did">D2</span><h4>Alvos de toque amplos e separação de ações opostas</h4></div>
+            <p>Dimensionar alvos interativos com pelo menos 44 × 44 px CSS — acima do mínimo de 24 × 24 px do nível AA — e separar espacialmente ações opostas (confirmar e cancelar), com hierarquia visual distinta entre elas.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Declínio da precisão motora e toques acidentais relatados por idosos (Kane, 2019; Zabini, 2021); dificuldade de identificar elementos na tela (Santos; Rodrigues; Ribeiro, 2023).</dd></div><div><dt>Como verificar</dt><dd>WCAG 2.2 — 2.5.5 (AAA) e 2.5.8 (AA); Nielsen — prevenção de erros.</dd></div></dl>
+          </article>
+        </div>
+      </div>
+
+      <div class="dgroup" data-group="b">
+        <div class="dgroup-head"><span class="gl" aria-hidden="true">B</span><h3>Compreensão</h3><p>Reduzir a carga cognitiva e falar a língua do usuário.</p></div>
+        <div class="dgrid">
+          <article class="sheet dcard" id="D3">
+            <div class="dcard-head"><span class="did">D3</span><h4>Linguagem simples e termos explicados</h4></div>
+            <p>Substituir ou acompanhar siglas e jargões (TED, DOC, CDB, OTP, D+1) por explicação em linguagem cotidiana e exibir valores monetários também por extenso nas telas de confirmação.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Correspondência entre o sistema e o mundo real (Nielsen, 1994); terminologia apontada como ponto crítico para o público idoso (Anjos; Gontijo, 2015; Mota, 2024).</dd></div><div><dt>Como verificar</dt><dd>WCAG 2.2 — 3.1.3 e 3.1.4 (AAA); Nielsen — correspondência com o mundo real.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D4">
+            <div class="dcard-head"><span class="did">D4</span><h4>Uma decisão por tela e fluxos curtos</h4></div>
+            <p>Decompor transações em etapas com uma única decisão por tela, indicador de progresso e informações necessárias sempre visíveis, sem exigir que o usuário memorize dados de uma etapa para outra.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Redução da memória de trabalho e da velocidade de processamento no envelhecimento (Neri, 2001; Czaja <em>et al.</em>, 2019); dificuldade de lembrar o passo a passo das tarefas (Zabini, 2021).</dd></div><div><dt>Como verificar</dt><dd>Nielsen — reconhecimento em vez de memorização; Shneiderman — reduzir a carga de memória; WCAG 2.2 — 3.3.7.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D5">
+            <div class="dcard-head"><span class="did">D5</span><h4>Consistência entre telas e versões</h4></div>
+            <p>Preservar posição, rótulo e ícone das funções mais usadas entre atualizações, anunciar mudanças relevantes com tutorial opcional e revisitável e manter ajuda e atendimento sempre no mesmo lugar.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Desorientação após atualizações e pouca familiaridade com aplicativos (Santos; Rodrigues; Ribeiro, 2023); consistência como regra de ouro do design de interfaces (Shneiderman <em>et al.</em>, 2016).</dd></div><div><dt>Como verificar</dt><dd>Nielsen — consistência e padrões; WCAG 2.2 — 3.2.3, 3.2.4 e 3.2.6.</dd></div></dl>
+          </article>
+        </div>
+      </div>
+
+      <div class="dgroup" data-group="c">
+        <div class="dgroup-head"><span class="gl" aria-hidden="true">C</span><h3>Ação e controle</h3><p>Prevenir erros e permitir recuperação.</p></div>
+        <div class="dgrid">
+          <article class="sheet dcard" id="D6">
+            <div class="dcard-head"><span class="did">D6</span><h4>Revisão explícita antes de transações</h4></div>
+            <p>Exibir tela de revisão obrigatória com nome completo do recebedor, instituição, chave utilizada e valor em algarismos e por extenso; o botão primário descreve a ação e o valor (por exemplo, “Enviar R$ 850,00 para Maria S.”).</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Prevenção de erros (Nielsen, 1994); relatos de transferências enviadas ao destinatário errado (Zabini, 2021).</dd></div><div><dt>Como verificar</dt><dd>WCAG 2.2 — 3.3.4 (AA); Shneiderman — prevenir erros.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D7">
+            <div class="dcard-head"><span class="did">D7</span><h4>Confirmação síncrona e comprovante permanente</h4></div>
+            <p>Após cada transação, exibir confirmação inequívoca com data, hora, valor e destinatário, mantê-la consultável no histórico e permitir o compartilhamento do comprovante.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Visibilidade do status do sistema (Nielsen, 1994); diálogos que produzem fechamento (Shneiderman <em>et al.</em>, 2016).</dd></div><div><dt>Como verificar</dt><dd>Nielsen — visibilidade do status do sistema; WCAG 2.2 — 4.1.3.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D8">
+            <div class="dcard-head"><span class="did">D8</span><h4>Recuperação de erros e contestação em um toque</h4></div>
+            <p>Oferecer, a partir do comprovante e das notificações, caminhos diretos para bloquear cartão, contestar transação e acionar o Mecanismo Especial de Devolução (MED) do Pix, com mensagens que não culpem o usuário.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Recuperação de erros (Nielsen, 1994); tendência de idosos a se culparem pelos erros (Kane, 2019); MED instituído pelo Banco Central (Banco Central do Brasil, 2021a).</dd></div><div><dt>Como verificar</dt><dd>Nielsen — ajudar a reconhecer, diagnosticar e recuperar-se de erros; Shneiderman — permitir a reversão de ações.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D9">
+            <div class="dcard-head"><span class="did">D9</span><h4>Autenticação e tempo acessíveis</h4></div>
+            <p>Evitar que o usuário precise alternar entre aplicativos para copiar códigos; preferir confirmação no próprio app, biometria ou chaves de acesso (passkeys), permitir colar e preencher automaticamente códigos e oferecer extensão de tempo antes de encerrar sessões.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Segurança pouco usável gera contornos inseguros (Adams; Sasse, 1999; Whitten; Tygar, 1999); SMS classificado como autenticador restrito (Grassi <em>et al.</em>, 2017).</dd></div><div><dt>Como verificar</dt><dd>WCAG 2.2 — 2.2.1 (A) e 3.3.8 (AA).</dd></div></dl>
+          </article>
+        </div>
+      </div>
+
+      <div class="dgroup" data-group="d">
+        <div class="dgroup-head"><span class="gl" aria-hidden="true">D</span><h3>Proteção antifraude</h3><p>Interromper o roteiro da engenharia social.</p></div>
+        <div class="dgrid">
+          <article class="sheet dcard" id="D10">
+            <div class="dcard-head"><span class="did">D10</span><h4>Fricção proporcional ao risco</h4></div>
+            <p>Aplicar etapas adicionais apenas a operações atípicas — primeiro envio a novo recebedor acima de um limiar, aumento de limites, acesso por novo dispositivo — com intervalo de efetivação e explicação do motivo, sem penalizar o uso cotidiano.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Ativação do pensamento deliberativo diante de decisões críticas (Kahneman, 2012); arquitetura de escolhas (Thaler; Sunstein, 2019); limites e prazos já previstos na regulação do Pix (Banco Central do Brasil, 2021b; 2024).</dd></div><div><dt>Como verificar</dt><dd>Shneiderman — prevenir erros; inspeção dos fluxos de alto risco.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D11">
+            <div class="dcard-head"><span class="did">D11</span><h4>Interrupção contextual antigolpe</h4></div>
+            <p>Antes de transações de risco, apresentar perguntas curtas sobre o contexto (“Alguém está ao telefone pedindo esta transferência?”, “Você recebeu este pedido por mensagem de um número novo?”) e adaptar a resposta do sistema: pausa, alerta específico ou contato com a instituição.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Interrupção do roteiro de urgência e autoridade explorado pelos golpistas (Cialdini, 2012; Kahneman, 2012); maior suscetibilidade de idosos a apelos de autoridade e reciprocidade (Oliveira <em>et al.</em>, 2017).</dd></div><div><dt>Como verificar</dt><dd>Cenários de golpe (falsa central, falso familiar) percorridos em testes de usabilidade.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D12">
+            <div class="dcard-head"><span class="did">D12</span><h4>Canal oficial verificável e mensagens inequívocas</h4></div>
+            <p>Concentrar comunicações oficiais em uma caixa de mensagens dentro do aplicativo, lembrar de forma recorrente e contextual o que a instituição nunca solicita (senha, código, transferência de teste, instalação de aplicativos, retirada de cartão) e oferecer função para verificar se uma ligação é legítima.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Modus operandi da falsa central e do falso motoboy (Melo, 2020; Instituto de Defesa de Consumidores, 2024); engenharia social como exploração da confiança (Mitnick; Simon, 2003).</dd></div><div><dt>Como verificar</dt><dd>Nielsen — ajuda e documentação; inventário das mensagens de segurança.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D13">
+            <div class="dcard-head"><span class="did">D13</span><h4>Detecção de contexto de manipulação técnica</h4></div>
+            <p>Quando a plataforma permitir, detectar compartilhamento de tela, aplicativos de acesso remoto ou sobreposições ativas durante operações sensíveis e interromper o fluxo com alerta específico.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Golpes do falso funcionário com acesso remoto e do “celular invadido” (Instituto de Defesa de Consumidores, 2024).</dd></div><div><dt>Como verificar</dt><dd>Testes técnicos em dispositivos reais; revisão de segurança do aplicativo.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D14">
+            <div class="dcard-head"><span class="did">D14</span><h4>Notificação de eventos sensíveis</h4></div>
+            <p>Notificar imediatamente, por canal oficial, eventos como acesso por novo dispositivo, contratação de crédito ou consignado, alteração de limites e cadastro de chaves Pix, sempre com opção de contestação em um toque.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Fraudes em consignado com uso de dados vazados (Instituto de Defesa de Consumidores, 2024); princípio da transparência no tratamento de dados pessoais (Brasil, 2018).</dd></div><div><dt>Como verificar</dt><dd>Matriz de eventos sensíveis × notificações; LGPD, art. 6º, VI.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D15">
+            <div class="dcard-head"><span class="did">D15</span><h4>Autonomia com rede de apoio opcional</h4></div>
+            <p>Permitir que o próprio usuário configure, se desejar, um contato de confiança, limites mais conservadores ou um modo protegido, sem tutela compulsória e com consentimento explícito e revogável.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Dependência de terceiros relatada por idosos para resolver questões financeiras (Zabini, 2021); respeito à autonomia da pessoa idosa (Brasil, 2003); consentimento como base legal (Brasil, 2018).</dd></div><div><dt>Como verificar</dt><dd>Revisão de privacidade e consentimento; testes com usuários.</dd></div></dl>
+          </article>
+          <article class="sheet dcard" id="D16">
+            <div class="dcard-head"><span class="did">D16</span><h4>Ausência de padrões enganosos</h4></div>
+            <p>Não utilizar opções pré-marcadas para seguros ou serviços, contagens regressivas artificiais, ofertas de crédito insistentes ou caminhos de cancelamento ocultos.</p>
+            <dl class="dmeta"><div><dt>Por quê</dt><dd>Prevalência e efeitos dos padrões enganosos em interfaces (Mathur <em>et al.</em>, 2019; Luguri; Strahilevitz, 2021); cobranças de seguros e tarifas não contratadas (Instituto de Defesa de Consumidores, 2024).</dd></div><div><dt>Como verificar</dt><dd>Auditoria de padrões enganosos; Código de Defesa do Consumidor, art. 39.</dd></div></dl>
+          </article>
+        </div>
+        <div class="note"><span class="mk" aria-hidden="true"></span><div><p><strong>Proteção sem paternalismo.</strong> A fricção proporcional (D10) e a interrupção contextual (D11) incidem apenas sobre operações atípicas, e a rede de apoio (D15) depende de escolha explícita e revogável do titular — evitando soluções que restrinjam indistintamente o acesso de pessoas idosas aos serviços financeiros.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="padroes" aria-labelledby="h-padroes">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 05</b> · Padrões de interface</p>
+        <h2 id="h-padroes">Padrões de interface, antes e depois</h2>
+        <p class="lede">Cinco situações recorrentes em aplicativos financeiros e a alternativa que fecha a brecha. Os números nas telas ilustrativas correspondem às observações logo abaixo de cada uma.</p>
+      </div>
+      <div class="pattern" data-compare>
+        <div class="pattern-head"><p class="eyebrow">Padrão 1 de 5 · Prevenção de erros — heurística 5 (Nielsen, 1994) · WCAG 2.5.8 · D2, D6</p><h3>Separe ações opostas e descreva a consequência no botão</h3></div>
+        <div class="compare-tabs"><div class="seg" role="group" aria-label="Escolher exemplo"><button type="button" aria-pressed="true" data-show="risk"><svg aria-hidden="true"><use href="#i-warn"/></svg>Antes</button><button type="button" aria-pressed="false" data-show="safe"><svg aria-hidden="true"><use href="#i-check"/></svg>Depois</button></div></div>
+        <div class="compare">
+          <figure class="panel risk is-active" data-panel="risk">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-warn"/></svg>Padrão de risco</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: revisão de Pix com botões Cancelar e Confirmar pequenos, lado a lado e com o mesmo peso.">
+                <div class="ph-status"><span>14:31</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg><use href="#i-back"/></svg>Pix</div>
+                <div class="ph-body">
+                  <span class="ph-lbl">Valor</span>
+                  <span class="ph-amt">R$ 850,00</span>
+                  <span class="ph-tiny">Chave: (35) 9••••-1234 · Inst. 0001</span>
+                  <span class="ph-fill"></span>
+                  <div class="m-row a"><span class="pin">1</span><span class="m-btn flat">Cancelar</span><span class="m-btn bad a"><span class="pin">2</span>Confirmar</span></div>
+                  <span class="dim">cerca de 30 px de altura</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin" aria-hidden="true">1</span>Botões pequenos, lado a lado, com o mesmo peso</li><li><span class="pin" aria-hidden="true">2</span>“Confirmar” não diz o que será feito</li></ol>
+            <p class="caption">Botões pequenos, lado a lado, com o mesmo peso. Um toque impreciso executa a ação errada — e o rótulo “Confirmar” não diz o que será feito.</p>
+          </figure>
+          <figure class="panel safe" data-panel="safe">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-check"/></svg>Padrão recomendado</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: revisão com recebedor, instituição, chave e valor por extenso; botão principal Enviar R$ 850,00 para Maria S. e, separado abaixo, Voltar e revisar.">
+                <div class="ph-status"><span>14:31</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg><use href="#i-back"/></svg>Revise antes de enviar</div>
+                <div class="ph-body">
+                  <span class="ph-amt a"><span class="pin pin--ok">1</span>R$ 850,00<small>oitocentos e cinquenta reais</small></span>
+                  <div class="ph-rows">
+                    <div><span>Recebedor</span><span>Maria S.</span></div>
+                    <div><span>Instituição</span><span>Banco Exemplo</span></div>
+                    <div><span>Chave</span><span>(35) 9••••-1234</span></div>
+                  </div>
+                  <span class="ph-fill"></span>
+                  <span class="m-btn pri a"><span class="pin pin--ok">2</span>Enviar R$ 850,00 para Maria S.</span>
+                  <span class="dim ok">44 px ou mais</span>
+                  <span class="m-btn out a"><span class="pin pin--ok">3</span>Voltar e revisar</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin pin--ok" aria-hidden="true">1</span>Valor em algarismos e por extenso</li><li><span class="pin pin--ok" aria-hidden="true">2</span>A ação principal descreve valor e destinatário</li><li><span class="pin pin--ok" aria-hidden="true">3</span>A alternativa fica separada e subordinada</li></ol>
+            <p class="caption">A ação principal descreve valor e destinatário; a alternativa fica separada e visualmente subordinada, com área de toque de 44 px.</p>
+          </figure>
+        </div>
+      </div>
+
+      <div class="pattern" data-compare>
+        <div class="pattern-head"><p class="eyebrow">Padrão 2 de 5 · Visibilidade do status do sistema — heurística 1 (Nielsen, 1994) · WCAG 4.1.3 · D7</p><h3>Confirme de forma síncrona e inequívoca</h3></div>
+        <div class="compare-tabs"><div class="seg" role="group" aria-label="Escolher exemplo"><button type="button" aria-pressed="true" data-show="risk"><svg aria-hidden="true"><use href="#i-warn"/></svg>Antes</button><button type="button" aria-pressed="false" data-show="safe"><svg aria-hidden="true"><use href="#i-check"/></svg>Depois</button></div></div>
+        <div class="compare">
+          <figure class="panel risk is-active" data-panel="risk">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-warn"/></svg>Padrão de risco</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: depois de enviar o Pix, o app volta à tela inicial sem nenhuma mensagem de confirmação.">
+                <div class="ph-status"><span>14:32</span><span class="bat"></span></div>
+                <div class="ph-bar">Início</div>
+                <div class="ph-body">
+                  <div class="ph-balance a"><span class="pin">1</span><small>Saldo disponível</small><b>R$ ••••••</b></div>
+                  <div class="ph-home"><span>Pix</span><span>Pagar</span><span>Cartões</span><span>Extrato</span><span>Investir</span><span>Ajuda</span></div>
+                  <span class="ph-tiny a"><span class="pin">2</span>O Pix foi enviado? Nenhum aviso.</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin" aria-hidden="true">1</span>A tela volta ao início sem mensagem clara</li><li><span class="pin" aria-hidden="true">2</span>A dúvida leva ao reenvio ou a canais não oficiais</li></ol>
+            <p class="caption">A tela volta ao início sem mensagem clara. Sem saber se o Pix foi enviado, o usuário repete a transferência — ou liga para um número encontrado fora do app, abrindo espaço para a falsa central.</p>
+          </figure>
+          <figure class="panel safe" data-panel="safe">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-check"/></svg>Padrão recomendado</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: confirmação Pix enviado, R$ 850,00, oitocentos e cinquenta reais, hoje às 14h32 para Maria S., comprovante salvo no histórico, com botão para compartilhar o comprovante.">
+                <div class="ph-status"><span>14:32</span><span class="bat"></span></div>
+                <div class="ph-bar">Comprovante</div>
+                <div class="ph-body center">
+                  <span class="ph-ok"><svg><use href="#i-check"/></svg></span>
+                  <strong>Pix enviado</strong>
+                  <span class="ph-amt">R$ 850,00<small>oitocentos e cinquenta reais</small></span>
+                  <div class="ph-rows a"><span class="pin pin--ok">1</span>
+                    <div><span>Para</span><span>Maria S.</span></div>
+                    <div><span>Data e hora</span><span>hoje, 14h32</span></div>
+                  </div>
+                  <div class="ph-note a"><span class="pin pin--ok">2</span><svg><use href="#i-check"/></svg>Comprovante salvo no histórico</div>
+                  <span class="m-btn out">Compartilhar comprovante</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin pin--ok" aria-hidden="true">1</span>Hora, valor por extenso e destinatário</li><li><span class="pin pin--ok" aria-hidden="true">2</span>Confirmação permanente, consultável depois</li></ol>
+            <p class="caption">Confirmação permanente, com hora, valor por extenso e destinatário, consultável depois. Elimina a dúvida que leva ao reenvio ou à checagem por canais não oficiais.</p>
+          </figure>
+        </div>
+      </div>
+
+      <div class="pattern" data-compare>
+        <div class="pattern-head"><p class="eyebrow">Padrão 3 de 5 · Correspondência entre o sistema e o mundo real — heurística 2 (Nielsen, 1994) · D3</p><h3>Substitua siglas por linguagem simples</h3></div>
+        <div class="compare-tabs"><div class="seg" role="group" aria-label="Escolher exemplo"><button type="button" aria-pressed="true" data-show="risk"><svg aria-hidden="true"><use href="#i-warn"/></svg>Antes</button><button type="button" aria-pressed="false" data-show="safe"><svg aria-hidden="true"><use href="#i-check"/></svg>Depois</button></div></div>
+        <div class="compare">
+          <figure class="panel risk is-active" data-panel="risk">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-warn"/></svg>Padrão de risco</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: opção Aplicar em CDB, liquidez D+1, sem explicação dos termos.">
+                <div class="ph-status"><span>10:05</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg><use href="#i-back"/></svg>Investimentos</div>
+                <div class="ph-body">
+                  <div class="ph-rows">
+                    <div><span>Produto</span><span>CDB</span></div>
+                    <div><span>Liquidez</span><span>D+1</span></div>
+                  </div>
+                  <span class="ph-term a"><span class="pin">1</span>Aplicar em CDB — liquidez D+1</span>
+                  <span class="ph-fill"></span>
+                  <span class="m-btn bad">Aplicar</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin" aria-hidden="true">1</span>Sigla sem explicação: o usuário confia às cegas</li></ol>
+            <p class="caption">A sigla sem explicação obriga o usuário a confiar às cegas — terreno fértil para quem se apresenta como “especialista” para explicar (e manipular).</p>
+          </figure>
+          <figure class="panel safe" data-panel="safe">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-check"/></svg>Padrão recomendado</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: Guardar dinheiro em Certificado de Depósito Bancário, CDB. Você pode resgatar em 1 dia útil.">
+                <div class="ph-status"><span>10:05</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg><use href="#i-back"/></svg>Guardar dinheiro</div>
+                <div class="ph-body">
+                  <span class="ph-term a"><span class="pin pin--ok">1</span>Guardar dinheiro em Certificado de Depósito Bancário (CDB)<small>Você pode resgatar em 1 dia útil.</small></span>
+                  <span class="ph-fill"></span>
+                  <span class="m-btn pri">Guardar dinheiro</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin pin--ok" aria-hidden="true">1</span>A explicação vem primeiro; a sigla fica entre parênteses</li></ol>
+            <p class="caption">A explicação em linguagem simples é o texto principal; o termo técnico aparece entre parênteses.</p>
+          </figure>
+        </div>
+      </div>
+
+      <div class="pattern" data-compare>
+        <div class="pattern-head"><p class="eyebrow">Padrão 4 de 5 · Fricção proporcional e interrupção contextual · D10, D11</p><h3>Quebre o roteiro de urgência antes do envio atípico</h3></div>
+        <div class="compare-tabs"><div class="seg" role="group" aria-label="Escolher exemplo"><button type="button" aria-pressed="true" data-show="risk"><svg aria-hidden="true"><use href="#i-warn"/></svg>Antes</button><button type="button" aria-pressed="false" data-show="safe"><svg aria-hidden="true"><use href="#i-check"/></svg>Depois</button></div></div>
+        <div class="compare">
+          <figure class="panel risk is-active" data-panel="risk">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-warn"/></svg>Padrão de risco</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: durante uma ligação em andamento, primeiro Pix de R$ 4.000,00 para uma chave nunca usada, com botão Enviar agora e nenhuma etapa extra.">
+                <div class="ph-status"><span class="ph-call a"><span class="pin">1</span><svg><use href="#i-phone"/></svg>Em ligação 04:12</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg><use href="#i-back"/></svg>Pix</div>
+                <div class="ph-body">
+                  <span class="ph-lbl">Valor</span>
+                  <span class="ph-amt">R$ 4.000,00</span>
+                  <div class="ph-rows a"><span class="pin">2</span>
+                    <div><span>Chave</span><span>nunca usada</span></div>
+                    <div><span>Quando</span><span>agora</span></div>
+                  </div>
+                  <span class="ph-fill"></span>
+                  <span class="m-btn bad a"><span class="pin">3</span>Enviar agora</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin" aria-hidden="true">1</span>O golpista, ao telefone, conduz a vítima</li><li><span class="pin" aria-hidden="true">2</span>Primeiro Pix alto para chave nunca usada</li><li><span class="pin" aria-hidden="true">3</span>Mesmo fluxo de um pagamento rotineiro</li></ol>
+            <p class="caption">Primeiro Pix de R$ 4.000 para uma chave nunca usada, numa tarde de terça-feira, sai com o mesmo fluxo de um pagamento rotineiro. O golpista, ao telefone, conduz a vítima tela a tela.</p>
+          </figure>
+          <figure class="panel safe" data-panel="safe">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-check"/></svg>Padrão recomendado · interativo</figcaption>
+            <div class="panel-stage">
+              <div class="phone" data-demo="interrupt">
+                <div class="ph-status"><span>15:20</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg aria-hidden="true"><use href="#i-back"/></svg>Pix · etapa de segurança</div>
+                <div class="ph-body" aria-live="polite">
+                  <span class="tag tag--ok demo-hint">Experimente: responda</span>
+                  <div class="demo-q a" data-step="ask"><span class="pin pin--ok" aria-hidden="true">1</span>
+                    <p id="demo-q-text">Antes de continuar: alguém está ao telefone ou por mensagem pedindo esta transferência agora?</p>
+                    <div class="demo-opts" role="group" aria-labelledby="demo-q-text">
+                      <button type="button" data-answer="sim">Sim</button>
+                      <button type="button" data-answer="nao">Não</button>
+                    </div>
+                  </div>
+                  <div class="demo-alert stop a" data-step="sim" hidden><span class="pin pin--ok" aria-hidden="true">2</span>
+                    <strong>Envio pausado por segurança</strong>
+                    Pedidos de transferência feitos por telefone ou mensagem são o roteiro do golpe da falsa central. O banco nunca pede transferência de teste.
+                  </div>
+                  <div class="demo-alert go" data-step="nao" hidden>
+                    <strong>Tudo certo, pode seguir</strong>
+                    Você vai para a revisão do envio. Pagamentos do dia a dia não passam por esta pergunta.
+                  </div>
+                  <span class="ph-fill"></span>
+                  <button type="button" class="demo-reset" hidden>Recomeçar exemplo</button>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin pin--ok" aria-hidden="true">1</span>Uma pergunta curta ativa o pensamento deliberado</li><li><span class="pin pin--ok" aria-hidden="true">2</span>Se a resposta for “sim”, o app pausa e explica o golpe</li></ol>
+            <p class="caption">Uma pergunta curta ativa o pensamento deliberado. Se a resposta for “sim”, o app pausa o envio e explica o golpe da falsa central — sem bloquear pagamentos do dia a dia.</p>
+          </figure>
+        </div>
+      </div>
+
+      <div class="pattern" data-compare>
+        <div class="pattern-head"><p class="eyebrow">Padrão 5 de 5 · Autenticação acessível — WCAG 3.3.8 · NIST SP 800-63B (Grassi <em>et al.</em>, 2017) · D9</p><h3>Autentique sem obrigar o usuário a trocar de aplicativo</h3></div>
+        <div class="compare-tabs"><div class="seg" role="group" aria-label="Escolher exemplo"><button type="button" aria-pressed="true" data-show="risk"><svg aria-hidden="true"><use href="#i-warn"/></svg>Antes</button><button type="button" aria-pressed="false" data-show="safe"><svg aria-hidden="true"><use href="#i-check"/></svg>Depois</button></div></div>
+        <div class="compare">
+          <figure class="panel risk is-active" data-panel="risk">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-warn"/></svg>Padrão de risco</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: Digite o código de 6 dígitos enviado por SMS em até 60 segundos; o campo não aceita colar e o tempo está acabando.">
+                <div class="ph-status"><span>09:14</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg><use href="#i-back"/></svg>Verificação</div>
+                <div class="ph-body">
+                  <span class="ph-term a"><span class="pin">1</span>Digite o código de 6 dígitos enviado por SMS em até 60 segundos.</span>
+                  <div class="ph-code"><span>4</span><span>8</span><span>_</span><span></span><span></span><span></span></div>
+                  <span class="ph-timer a"><span class="pin">2</span>Tempo restante: 0:12</span>
+                  <span class="ph-tiny a"><span class="pin">3</span>Colar não permitido neste campo.</span>
+                  <span class="ph-fill"></span>
+                  <span class="m-btn flat">Confirmar</span>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin" aria-hidden="true">1</span>Obriga a sair do app e memorizar o código</li><li><span class="pin" aria-hidden="true">2</span>Tempo curto, sem aviso nem extensão</li><li><span class="pin" aria-hidden="true">3</span>O campo não aceita colar</li></ol>
+            <p class="caption">“Digite o código de 6 dígitos enviado por SMS em até 60 segundos.” O usuário sai do app, memoriza o código, volta — e o campo não aceita colar. O tempo acaba e ele pede ajuda a quem estiver por perto.</p>
+          </figure>
+          <figure class="panel safe" data-panel="safe">
+            <figcaption class="panel-label"><svg aria-hidden="true"><use href="#i-check"/></svg>Padrão recomendado</figcaption>
+            <div class="panel-stage">
+              <div class="phone" role="img" aria-label="Tela ilustrativa: Confirme com sua digital ou rosto, ou toque em Aprovar na notificação do app.">
+                <div class="ph-status"><span>09:14</span><span class="bat"></span></div>
+                <div class="ph-bar"><svg><use href="#i-back"/></svg>Confirme que é você</div>
+                <div class="ph-body center">
+                  <span class="ph-bio a"><span class="pin pin--ok">1</span><svg><use href="#i-finger"/></svg></span>
+                  <strong>Confirme com sua digital ou rosto</strong>
+                  <span class="ph-tiny">ou toque em “Aprovar” na notificação do app</span>
+                  <span class="ph-fill"></span>
+                  <div class="ph-note a"><span class="pin pin--ok">2</span><svg><use href="#i-lock"/></svg>Se houver código: preenchimento automático, opção de colar e aviso antes do tempo acabar.</div>
+                </div>
+              </div>
+            </div>
+            <ol class="notes"><li><span class="pin pin--ok" aria-hidden="true">1</span>Biometria, aprovação no app ou chaves de acesso</li><li><span class="pin pin--ok" aria-hidden="true">2</span>Código com colar, preenchimento automático e aviso</li></ol>
+            <p class="caption">Biometria, aprovação no próprio app ou chaves de acesso (passkeys); quando houver código, preenchimento automático, opção de colar e aviso antes do tempo esgotar.</p>
+          </figure>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="ciclo" aria-labelledby="h-ciclo">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 06</b> · Ciclo de desenvolvimento</p>
+        <h2 id="h-ciclo">Onde aplicar no ciclo de desenvolvimento</h2>
+        <p class="lede">As diretrizes funcionam melhor quando entram no processo desde os requisitos — e não como revisão de última hora (Pressman; Maxim, 2016).</p>
+      </div>
+      <ol class="cycle">
+        <li><h3>Requisitos</h3><p>Converta cada vetor de fraude da seção 03 em um requisito negativo (“o sistema não deve permitir…”) e em critérios de aceite.</p>
+          <ul class="xref"><li><a href="#D10"><span class="xc">D10–16</span><span class="xn">Grupo D: proteção antifraude</span><span class="xa" aria-hidden="true">→</span></a></li></ul></li>
+        <li><h3>Prototipação</h3><p>Desenhe as telas de revisão, confirmação e alerta antes das telas “felizes”. Valide hierarquia, rótulos e linguagem.</p>
+          <ul class="xref"><li><a href="#D2"><span class="xc">D2–7</span><span class="xn">Do alvo de toque ao comprovante</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D11"><span class="xc">D11</span><span class="xn">Interrupção contextual</span><span class="xa" aria-hidden="true">→</span></a></li></ul></li>
+        <li><h3>Implementação</h3><p>Transforme tamanhos, contrastes e espaçamentos em tokens do design system; implemente detecção de acesso remoto e notificações.</p>
+          <ul class="xref"><li><a href="#D1"><span class="xc">D1, D2</span><span class="xn">Legibilidade e alvos de toque</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D9"><span class="xc">D9</span><span class="xn">Autenticação acessível</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D13"><span class="xc">D13, D14</span><span class="xn">Detecção e notificações</span><span class="xa" aria-hidden="true">→</span></a></li></ul></li>
+        <li><h3>Testes</h3><p>Combine verificação automatizada de acessibilidade, inspeção com o checklist e testes de usabilidade com idosos usando cenários de golpe.</p>
+          <ul class="xref"><li><a href="#checklist"><span class="xc">§ 08</span><span class="xn">Checklist de conformidade</span><span class="xa" aria-hidden="true">→</span></a></li></ul></li>
+        <li><h3>Operação</h3><p>Preserve a consistência entre versões, monitore contestações e revise as mensagens de segurança quando surgirem novos golpes.</p>
+          <ul class="xref"><li><a href="#D5"><span class="xc">D5</span><span class="xn">Consistência entre versões</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D8"><span class="xc">D8</span><span class="xn">Contestação em um toque</span><span class="xa" aria-hidden="true">→</span></a></li><li><a href="#D12"><span class="xc">D12</span><span class="xn">Mensagens de segurança</span><span class="xa" aria-hidden="true">→</span></a></li></ul></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="modulos" class="tight" aria-labelledby="h-modulos">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 07</b> · Estrutura</p>
+        <h2 id="h-modulos">Como este guia foi estruturado</h2>
+      </div>
+      <div class="modules">
+        <a class="nav-card" href="#usuario"><span class="eyebrow">Módulo 1 · § 02</span><span class="num">5</span><h3>Perfil e modelo mental do usuário sênior</h3><p>Mudanças cognitivas, sensoriais e motoras traduzidas em requisitos de projeto.</p><span class="go">Ver o perfil →</span></a>
+        <a class="nav-card" href="#golpes"><span class="eyebrow">Módulo 2 · § 03</span><span class="num">8</span><h3>Vetores de fraude como requisitos negativos</h3><p>Cada golpe reformulado como pergunta de projeto e ligado às diretrizes que o mitigam.</p><span class="go">Ver a matriz →</span></a>
+        <a class="nav-card" href="#diretrizes"><span class="eyebrow">Módulo 3 · § 04 e 05</span><span class="num">16</span><h3>Diretrizes de design inclusivo e seguro</h3><p>Heurísticas de Nielsen, regras de Shneiderman e WCAG 2.2 traduzidas em 16 recomendações acionáveis.</p><span class="go">Ver as diretrizes →</span></a>
+        <a class="nav-card" href="#checklist"><span class="eyebrow">Módulo 4 · § 08</span><span class="num">26</span><h3>Checklist de conformidade e validação</h3><p>Lista de verificação para revisões de design e testes, mapeada às diretrizes e aos critérios WCAG.</p><span class="go">Abrir o checklist →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist" aria-labelledby="h-checklist">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 08</b> · Checklist</p>
+        <h2 id="h-checklist">Checklist de conformidade</h2>
+        <p class="lede">Use em revisões de design, inspeções e testes de usabilidade com público sênior. Para cada item, assinale se o requisito é atendido, não atendido ou não se aplica ao produto avaliado. As respostas ficam salvas apenas neste navegador.</p>
+      </div>
+
+      <div class="cl">
+        <div class="cl-bar">
+          <div>
+            <div class="progress-top"><strong id="pct">0%</strong><span id="pcount" aria-live="polite">0 de 26 itens aplicáveis atendidos</span></div>
+            <div class="progress-bar" aria-hidden="true"><span class="p-sim"></span><span class="p-nao"></span><span class="p-na"></span></div>
+            <ul class="legend" aria-label="Resumo das respostas">
+              <li><i class="l-sim"></i>Sim <b id="c-sim">0</b></li>
+              <li><i class="l-nao"></i>Não <b id="c-nao">0</b></li>
+              <li><i class="l-na"></i>N/A <b id="c-na">0</b></li>
+              <li><i class="l-pend"></i>Pendentes <b id="c-pend">26</b></li>
+            </ul>
+          </div>
+          <div class="cl-actions">
+            <button class="btn btn--line" type="button" id="ck-toggle">Expandir todos</button>
+            <button class="btn btn--line" type="button" id="ck-reset">Limpar respostas</button>
+            <button class="btn" type="button" id="ck-print"><svg aria-hidden="true"><use href="#i-print"/></svg>Imprimir</button>
+          </div>
+        </div>
+        <details class="cl-group" open>
+          <summary><span class="gl" aria-hidden="true">A</span><span>Percepção</span><span class="count" data-count="a">0/4</span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+          <ul class="cl-items">
+            <li class="cl-item" data-key="ck1"><span class="num">1</span><p class="txt" id="ck1-t">O corpo de texto tem no mínimo 16 px e a interface suporta ampliação de 200% sem cortar conteúdo ou ações.<span class="ref">D1 · WCAG 2.2 — 1.4.1, 1.4.3, 1.4.4 e 1.4.11</span></p><div class="seg" role="radiogroup" aria-labelledby="ck1-t"><label><input type="radio" name="ck1" value="sim" id="ck1-sim"><span>Sim</span></label><label><input type="radio" name="ck1" value="nao" id="ck1-nao"><span>Não</span></label><label><input type="radio" name="ck1" value="na" id="ck1-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck2"><span class="num">2</span><p class="txt" id="ck2-t">Texto atinge contraste de 4,5:1 e ícones, bordas de campos e botões atingem 3:1; nenhum alerta depende só de cor.<span class="ref">D1 · WCAG 2.2 — 1.4.1, 1.4.3, 1.4.4 e 1.4.11</span></p><div class="seg" role="radiogroup" aria-labelledby="ck2-t"><label><input type="radio" name="ck2" value="sim" id="ck2-sim"><span>Sim</span></label><label><input type="radio" name="ck2" value="nao" id="ck2-nao"><span>Não</span></label><label><input type="radio" name="ck2" value="na" id="ck2-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck3"><span class="num">3</span><p class="txt" id="ck3-t">Botões, links e campos têm área de toque de pelo menos 44 × 44 px.<span class="ref">D2 · WCAG 2.2 — 2.5.5 (AAA) e 2.5.8 (AA); Nielsen — prevenção de erros</span></p><div class="seg" role="radiogroup" aria-labelledby="ck3-t"><label><input type="radio" name="ck3" value="sim" id="ck3-sim"><span>Sim</span></label><label><input type="radio" name="ck3" value="nao" id="ck3-nao"><span>Não</span></label><label><input type="radio" name="ck3" value="na" id="ck3-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck4"><span class="num">4</span><p class="txt" id="ck4-t">Confirmar e cancelar não estão lado a lado com o mesmo peso visual; há espaço e hierarquia entre eles.<span class="ref">D2 · WCAG 2.2 — 2.5.5 (AAA) e 2.5.8 (AA); Nielsen — prevenção de erros</span></p><div class="seg" role="radiogroup" aria-labelledby="ck4-t"><label><input type="radio" name="ck4" value="sim" id="ck4-sim"><span>Sim</span></label><label><input type="radio" name="ck4" value="nao" id="ck4-nao"><span>Não</span></label><label><input type="radio" name="ck4" value="na" id="ck4-na"><span>N/A</span></label></div></li>
+          </ul>
+        </details>
+        <details class="cl-group">
+          <summary><span class="gl" aria-hidden="true">B</span><span>Compreensão</span><span class="count" data-count="b">0/6</span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+          <ul class="cl-items">
+            <li class="cl-item" data-key="ck5"><span class="num">5</span><p class="txt" id="ck5-t">Toda sigla ou termo técnico aparece acompanhado de explicação em linguagem simples.<span class="ref">D3 · WCAG 2.2 — 3.1.3 e 3.1.4 (AAA); Nielsen — correspondência com o mundo real</span></p><div class="seg" role="radiogroup" aria-labelledby="ck5-t"><label><input type="radio" name="ck5" value="sim" id="ck5-sim"><span>Sim</span></label><label><input type="radio" name="ck5" value="nao" id="ck5-nao"><span>Não</span></label><label><input type="radio" name="ck5" value="na" id="ck5-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck6"><span class="num">6</span><p class="txt" id="ck6-t">Telas de confirmação mostram o valor em algarismos e por extenso.<span class="ref">D3 · WCAG 2.2 — 3.1.3 e 3.1.4 (AAA); Nielsen — correspondência com o mundo real</span></p><div class="seg" role="radiogroup" aria-labelledby="ck6-t"><label><input type="radio" name="ck6" value="sim" id="ck6-sim"><span>Sim</span></label><label><input type="radio" name="ck6" value="nao" id="ck6-nao"><span>Não</span></label><label><input type="radio" name="ck6" value="na" id="ck6-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck7"><span class="num">7</span><p class="txt" id="ck7-t">Cada tela de uma transação pede uma única decisão e mostra em que etapa o usuário está.<span class="ref">D4 · Nielsen — reconhecimento em vez de memorização; Shneiderman — reduzir a carga de memória; WCAG 2.2 — 3.3.7</span></p><div class="seg" role="radiogroup" aria-labelledby="ck7-t"><label><input type="radio" name="ck7" value="sim" id="ck7-sim"><span>Sim</span></label><label><input type="radio" name="ck7" value="nao" id="ck7-nao"><span>Não</span></label><label><input type="radio" name="ck7" value="na" id="ck7-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck8"><span class="num">8</span><p class="txt" id="ck8-t">Dados já informados não precisam ser digitados de novo nem lembrados de uma tela para outra.<span class="ref">D4 · Nielsen — reconhecimento em vez de memorização; Shneiderman — reduzir a carga de memória; WCAG 2.2 — 3.3.7</span></p><div class="seg" role="radiogroup" aria-labelledby="ck8-t"><label><input type="radio" name="ck8" value="sim" id="ck8-sim"><span>Sim</span></label><label><input type="radio" name="ck8" value="nao" id="ck8-nao"><span>Não</span></label><label><input type="radio" name="ck8" value="na" id="ck8-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck9"><span class="num">9</span><p class="txt" id="ck9-t">As funções mais usadas mantêm posição, nome e ícone entre versões.<span class="ref">D5 · Nielsen — consistência e padrões; WCAG 2.2 — 3.2.3, 3.2.4 e 3.2.6</span></p><div class="seg" role="radiogroup" aria-labelledby="ck9-t"><label><input type="radio" name="ck9" value="sim" id="ck9-sim"><span>Sim</span></label><label><input type="radio" name="ck9" value="nao" id="ck9-nao"><span>Não</span></label><label><input type="radio" name="ck9" value="na" id="ck9-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck10"><span class="num">10</span><p class="txt" id="ck10-t">O acesso a ajuda e atendimento humano está no mesmo lugar em todas as telas.<span class="ref">D5 · Nielsen — consistência e padrões; WCAG 2.2 — 3.2.3, 3.2.4 e 3.2.6</span></p><div class="seg" role="radiogroup" aria-labelledby="ck10-t"><label><input type="radio" name="ck10" value="sim" id="ck10-sim"><span>Sim</span></label><label><input type="radio" name="ck10" value="nao" id="ck10-nao"><span>Não</span></label><label><input type="radio" name="ck10" value="na" id="ck10-na"><span>N/A</span></label></div></li>
+          </ul>
+        </details>
+        <details class="cl-group">
+          <summary><span class="gl" aria-hidden="true">C</span><span>Ação e controle</span><span class="count" data-count="c">0/7</span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+          <ul class="cl-items">
+            <li class="cl-item" data-key="ck11"><span class="num">11</span><p class="txt" id="ck11-t">Antes de concluir, o usuário revisa recebedor, instituição, chave e valor em uma única tela.<span class="ref">D6 · WCAG 2.2 — 3.3.4 (AA); Shneiderman — prevenir erros</span></p><div class="seg" role="radiogroup" aria-labelledby="ck11-t"><label><input type="radio" name="ck11" value="sim" id="ck11-sim"><span>Sim</span></label><label><input type="radio" name="ck11" value="nao" id="ck11-nao"><span>Não</span></label><label><input type="radio" name="ck11" value="na" id="ck11-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck12"><span class="num">12</span><p class="txt" id="ck12-t">O botão de confirmação descreve a ação e o valor, e não apenas “OK” ou “Continuar”.<span class="ref">D6 · WCAG 2.2 — 3.3.4 (AA); Shneiderman — prevenir erros</span></p><div class="seg" role="radiogroup" aria-labelledby="ck12-t"><label><input type="radio" name="ck12" value="sim" id="ck12-sim"><span>Sim</span></label><label><input type="radio" name="ck12" value="nao" id="ck12-nao"><span>Não</span></label><label><input type="radio" name="ck12" value="na" id="ck12-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck13"><span class="num">13</span><p class="txt" id="ck13-t">Toda transação concluída gera confirmação com data, hora, valor e destinatário, consultável depois.<span class="ref">D7 · Nielsen — visibilidade do status do sistema; WCAG 2.2 — 4.1.3</span></p><div class="seg" role="radiogroup" aria-labelledby="ck13-t"><label><input type="radio" name="ck13" value="sim" id="ck13-sim"><span>Sim</span></label><label><input type="radio" name="ck13" value="nao" id="ck13-nao"><span>Não</span></label><label><input type="radio" name="ck13" value="na" id="ck13-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck14"><span class="num">14</span><p class="txt" id="ck14-t">Bloquear cartão e contestar uma transação estão a no máximo um toque do comprovante ou da notificação.<span class="ref">D8 · Nielsen — ajudar a reconhecer, diagnosticar e recuperar-se de erros; Shneiderman — permitir a reversão de ações</span></p><div class="seg" role="radiogroup" aria-labelledby="ck14-t"><label><input type="radio" name="ck14" value="sim" id="ck14-sim"><span>Sim</span></label><label><input type="radio" name="ck14" value="nao" id="ck14-nao"><span>Não</span></label><label><input type="radio" name="ck14" value="na" id="ck14-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck15"><span class="num">15</span><p class="txt" id="ck15-t">Mensagens de erro explicam o que aconteceu e como corrigir, sem códigos e sem culpar o usuário.<span class="ref">D8 · Nielsen — ajudar a reconhecer, diagnosticar e recuperar-se de erros; Shneiderman — permitir a reversão de ações</span></p><div class="seg" role="radiogroup" aria-labelledby="ck15-t"><label><input type="radio" name="ck15" value="sim" id="ck15-sim"><span>Sim</span></label><label><input type="radio" name="ck15" value="nao" id="ck15-nao"><span>Não</span></label><label><input type="radio" name="ck15" value="na" id="ck15-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck16"><span class="num">16</span><p class="txt" id="ck16-t">A autenticação não obriga o usuário a sair do app para copiar códigos e aceita colar e preenchimento automático.<span class="ref">D9 · WCAG 2.2 — 2.2.1 (A) e 3.3.8 (AA)</span></p><div class="seg" role="radiogroup" aria-labelledby="ck16-t"><label><input type="radio" name="ck16" value="sim" id="ck16-sim"><span>Sim</span></label><label><input type="radio" name="ck16" value="nao" id="ck16-nao"><span>Não</span></label><label><input type="radio" name="ck16" value="na" id="ck16-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck17"><span class="num">17</span><p class="txt" id="ck17-t">Antes de encerrar a sessão por inatividade, o sistema avisa e permite estender o tempo.<span class="ref">D9 · WCAG 2.2 — 2.2.1 (A) e 3.3.8 (AA)</span></p><div class="seg" role="radiogroup" aria-labelledby="ck17-t"><label><input type="radio" name="ck17" value="sim" id="ck17-sim"><span>Sim</span></label><label><input type="radio" name="ck17" value="nao" id="ck17-nao"><span>Não</span></label><label><input type="radio" name="ck17" value="na" id="ck17-na"><span>N/A</span></label></div></li>
+          </ul>
+        </details>
+        <details class="cl-group">
+          <summary><span class="gl" aria-hidden="true">D</span><span>Proteção antifraude</span><span class="count" data-count="d">0/9</span><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+          <ul class="cl-items">
+            <li class="cl-item" data-key="ck18"><span class="num">18</span><p class="txt" id="ck18-t">Envios atípicos (novo recebedor, valor alto, novo dispositivo) passam por etapa extra explicada ao usuário.<span class="ref">D10 · Shneiderman — prevenir erros; inspeção dos fluxos de alto risco</span></p><div class="seg" role="radiogroup" aria-labelledby="ck18-t"><label><input type="radio" name="ck18" value="sim" id="ck18-sim"><span>Sim</span></label><label><input type="radio" name="ck18" value="nao" id="ck18-nao"><span>Não</span></label><label><input type="radio" name="ck18" value="na" id="ck18-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck19"><span class="num">19</span><p class="txt" id="ck19-t">Pedidos de aumento de limite têm prazo de efetivação e notificação, sem bloquear operações rotineiras.<span class="ref">D10 · Shneiderman — prevenir erros; inspeção dos fluxos de alto risco</span></p><div class="seg" role="radiogroup" aria-labelledby="ck19-t"><label><input type="radio" name="ck19" value="sim" id="ck19-sim"><span>Sim</span></label><label><input type="radio" name="ck19" value="nao" id="ck19-nao"><span>Não</span></label><label><input type="radio" name="ck19" value="na" id="ck19-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck20"><span class="num">20</span><p class="txt" id="ck20-t">Transações de risco exibem perguntas de contexto e, diante de respostas de risco, pausam o fluxo com alerta específico.<span class="ref">D11 · Cenários de golpe (falsa central, falso familiar) percorridos em testes de usabilidade</span></p><div class="seg" role="radiogroup" aria-labelledby="ck20-t"><label><input type="radio" name="ck20" value="sim" id="ck20-sim"><span>Sim</span></label><label><input type="radio" name="ck20" value="nao" id="ck20-nao"><span>Não</span></label><label><input type="radio" name="ck20" value="na" id="ck20-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck21"><span class="num">21</span><p class="txt" id="ck21-t">Existe uma caixa de mensagens oficial no app e o usuário consegue verificar se um contato recebido é legítimo.<span class="ref">D12 · Nielsen — ajuda e documentação; inventário das mensagens de segurança</span></p><div class="seg" role="radiogroup" aria-labelledby="ck21-t"><label><input type="radio" name="ck21" value="sim" id="ck21-sim"><span>Sim</span></label><label><input type="radio" name="ck21" value="nao" id="ck21-nao"><span>Não</span></label><label><input type="radio" name="ck21" value="na" id="ck21-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck22"><span class="num">22</span><p class="txt" id="ck22-t">O app lembra, no momento oportuno, que a instituição nunca pede senha, código, transferência de teste ou o cartão físico.<span class="ref">D12 · Nielsen — ajuda e documentação; inventário das mensagens de segurança</span></p><div class="seg" role="radiogroup" aria-labelledby="ck22-t"><label><input type="radio" name="ck22" value="sim" id="ck22-sim"><span>Sim</span></label><label><input type="radio" name="ck22" value="nao" id="ck22-nao"><span>Não</span></label><label><input type="radio" name="ck22" value="na" id="ck22-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck23"><span class="num">23</span><p class="txt" id="ck23-t">Operações sensíveis são interrompidas com alerta quando há compartilhamento de tela ou acesso remoto ativo.<span class="ref">D13 · Testes técnicos em dispositivos reais; revisão de segurança do aplicativo</span></p><div class="seg" role="radiogroup" aria-labelledby="ck23-t"><label><input type="radio" name="ck23" value="sim" id="ck23-sim"><span>Sim</span></label><label><input type="radio" name="ck23" value="nao" id="ck23-nao"><span>Não</span></label><label><input type="radio" name="ck23" value="na" id="ck23-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck24"><span class="num">24</span><p class="txt" id="ck24-t">Novo dispositivo, nova contratação de crédito, mudança de limite e cadastro de chave geram notificação imediata com contestação.<span class="ref">D14 · Matriz de eventos sensíveis × notificações; LGPD, art. 6º, VI</span></p><div class="seg" role="radiogroup" aria-labelledby="ck24-t"><label><input type="radio" name="ck24" value="sim" id="ck24-sim"><span>Sim</span></label><label><input type="radio" name="ck24" value="nao" id="ck24-nao"><span>Não</span></label><label><input type="radio" name="ck24" value="na" id="ck24-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck25"><span class="num">25</span><p class="txt" id="ck25-t">Contato de confiança e modo protegido são opcionais, configurados pelo próprio titular e revogáveis a qualquer momento.<span class="ref">D15 · Revisão de privacidade e consentimento; testes com usuários</span></p><div class="seg" role="radiogroup" aria-labelledby="ck25-t"><label><input type="radio" name="ck25" value="sim" id="ck25-sim"><span>Sim</span></label><label><input type="radio" name="ck25" value="nao" id="ck25-nao"><span>Não</span></label><label><input type="radio" name="ck25" value="na" id="ck25-na"><span>N/A</span></label></div></li>
+            <li class="cl-item" data-key="ck26"><span class="num">26</span><p class="txt" id="ck26-t">Não há seguros ou serviços pré-selecionados, urgência artificial ou cancelamento escondido.<span class="ref">D16 · Auditoria de padrões enganosos; Código de Defesa do Consumidor, art. 39</span></p><div class="seg" role="radiogroup" aria-labelledby="ck26-t"><label><input type="radio" name="ck26" value="sim" id="ck26-sim"><span>Sim</span></label><label><input type="radio" name="ck26" value="nao" id="ck26-nao"><span>Não</span></label><label><input type="radio" name="ck26" value="na" id="ck26-na"><span>N/A</span></label></div></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" aria-label="Síntese">
+    <div class="wrap">
+      <blockquote class="quote"><p>“A vulnerabilidade do idoso no ambiente digital não deriva de incapacidade — deriva de <span class="hl">sistemas projetados sem consideração às suas especificidades funcionais</span>.”</p></blockquote>
+      <p class="quote-cite">Síntese dos autores deste guia, a partir de Barbosa e Silva (2010), Czaja <em>et al.</em> (2019) e Kane (2019)</p>
+    </div>
+  </section>
+
+  <section id="recursos" aria-labelledby="h-recursos">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 09</b> · Regulação</p>
+        <h2 id="h-recursos">Camadas institucionais e regulatórias</h2>
+        <p class="lede">O design de produto não atua sozinho. Estas camadas complementam as diretrizes e devem ser refletidas na interface: um limite que o usuário não compreende ou um mecanismo de devolução difícil de encontrar podem ser percebidos como falha do sistema — e levar a vítima a buscar “ajuda” em canais não oficiais.</p>
+      </div>
+      <div class="layers">
+        <div class="sheet"><span class="tag">Banco Central</span><h3>BC Protege+</h3><p>Serviço do Banco Central, lançado em dezembro de 2025, que permite ao cidadão impedir a abertura de contas em seu nome e sua inclusão como titular ou representante de contas existentes (Banco Central do Brasil, 2025).</p></div>
+        <div class="sheet"><span class="tag">Regulação do Pix</span><h3>Limites e prazos do Pix</h3><p>Limite noturno e prazo de 24 a 48 horas para aumento de limites (Banco Central do Brasil, 2021b); transações em dispositivos não cadastrados limitadas a R$ 200 por operação e R$ 1.000 por dia (Banco Central do Brasil, 2024).</p></div>
+        <div class="sheet"><span class="tag">Regulação do Pix</span><h3>Mecanismo Especial de Devolução</h3><p>O MED permite contestar Pix em caso de fraude. A interface deve torná-lo encontrável a partir do comprovante, em linguagem simples (Banco Central do Brasil, 2021a).</p></div>
+        <div class="sheet"><span class="tag">Legislação</span><h3>Acessibilidade é obrigação legal</h3><p>A Lei Brasileira de Inclusão torna obrigatória a acessibilidade dos sítios mantidos por empresas com sede ou representação no país (Brasil, 2015, art. 63); o eMAG (Brasil, 2014) e a WCAG 2.2 orientam a implementação.</p></div>
+        <div class="sheet"><span class="tag">Legislação</span><h3>Autonomia e proteção de dados</h3><p>O Estatuto da Pessoa Idosa assegura o respeito à autonomia (Brasil, 2003) e a LGPD exige transparência e consentimento (Brasil, 2018) — inclusive em recursos de rede de apoio.</p></div>
+        <div class="sheet"><span class="tag">Legislação</span><h3>Práticas abusivas</h3><p>O Código de Defesa do Consumidor veda prevalecer-se da fraqueza do consumidor em razão da idade (Brasil, 1990, art. 39, IV) — o que alcança padrões enganosos de interface.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pesquisa" class="band" aria-labelledby="h-pesquisa">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>TCC</b> · A pesquisa</p>
+        <h2 id="h-pesquisa">A pesquisa por trás do guia</h2>
+        <p class="lede">Este guia é o artefato de um Trabalho de Conclusão de Curso em Sistemas de Informação. A pesquisa, de natureza aplicada, abordagem qualitativa e caráter exploratório e descritivo, adotou a <em>Design Science Research</em> para transformar a literatura em diretrizes práticas e verificáveis.</p>
+      </div>
+
+      <div class="band-grid">
+        <div>
+          <p class="eyebrow">Questão de pesquisa</p>
+          <p class="rq">Como princípios de Interação Humano-Computador, acessibilidade e segurança comportamental podem ser sistematizados em diretrizes práticas que orientem equipes de desenvolvimento na criação de interfaces financeiras acessíveis ao público idoso e mais resistentes à engenharia social?</p>
+
+          <p class="eyebrow">Método: seis atividades da DSRM (Peffers <em>et al.</em>, 2007)</p>
+          <ol class="dsrm">
+            <li><div><strong>Identificação do problema e motivação</strong><span>Pesquisa bibliográfica e documental → <em>contextualização e problema de pesquisa</em></span></div></li>
+            <li><div><strong>Definição dos objetivos da solução</strong><span>Análise de conteúdo e categorização → <em>categorias de vulnerabilidade e requisitos do guia</em></span></div></li>
+            <li><div><strong>Projeto e desenvolvimento</strong><span>Matriz de rastreabilidade, redação das diretrizes e implementação web → <em>diretrizes D1–D16, checklist e guia web</em></span></div></li>
+            <li><div><strong>Demonstração</strong><span>Aplicação das diretrizes a cenários de golpe → <em>padrões de interface antes e depois</em></span></div></li>
+            <li><div><strong>Avaliação</strong><span>Auditoria automatizada de acessibilidade e inspeção por critérios → <em>relatório de conformidade e correções</em></span></div></li>
+            <li><div><strong>Comunicação</strong><span>Redação do TCC e publicação do guia → <em>o documento e este website</em></span></div></li>
+          </ol>
+        </div>
+
+        <div class="eval-wrap">
+          <p class="eyebrow">Corpus e avaliação</p>
+          <div class="eval">
+            <div><b>55</b><span>documentos analisados: 33 científicos e 22 técnicos, normativos ou institucionais</span></div>
+            <div><b>15 → 0</b><span>violações de acessibilidade detectadas entre a versão inicial e a final do guia</span></div>
+          </div>
+          <p class="small">A auditoria usou o axe-core 4.10.2 (Deque Systems, 2024) em navegador Chromium, com as regras dos níveis A e AA das WCAG 2.0, 2.1 e 2.2, em 1.280 px e 390 px de largura. Ferramentas automatizadas detectam apenas parte dos problemas: a ausência de violações não equivale à conformidade plena, o que reforça a necessidade de testes com usuários.</p>
+
+          <p class="eyebrow mt">Limitações e trabalhos futuros</p>
+          <ul class="future">
+            <li>As evidências sobre usuários vêm de estudos publicados; não houve coleta com idosos nem inspeção direta de aplicativos comerciais.</li>
+            <li>Validar o guia com especialistas em Sistemas de Informação, UX e segurança da informação.</li>
+            <li>Inspecionar aplicativos bancários de larga adoção com o checklist, classificando problemas por severidade e potencial de exploração.</li>
+            <li>Testar protótipos com pessoas idosas em cenários simulados de golpe, com aprovação de comitê de ética.</li>
+            <li>Investigar inteligência artificial para detectar golpes em andamento, avaliando impactos sobre privacidade e autonomia.</li>
+            <li>Atualizar o guia à medida que surgirem novas fraudes e regulamentações.</li>
+          </ul>
+
+          <div class="authors">
+            <span><strong>Autores:</strong> Leonardo Brandão e Endrio Emanuel Ferreira Soares</span>
+            <span><strong>Orientação:</strong> Prof.ª Dr.ª Daniela Augusta Guimarães Dias</span>
+            <span>Bacharelado em Sistemas de Informação · IFSULDEMINAS — Campus Machado · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="referencias" aria-labelledby="h-ref">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-num"><b>§ 10</b> · Referências</p>
+        <h2 id="h-ref">Referências</h2>
+      </div>
+      <div class="refs-tools">
+        <label for="ref-search">Buscar nas referências</label>
+        <input id="ref-search" type="search" placeholder="Autor, título ou ano" autocomplete="off">
+      </div>
+      <p class="refs-empty" id="refs-empty" hidden>Nenhuma referência encontrada. Tente outro termo.</p>
+      <ul class="refs" id="refs">
+<li>ADAMS, Anne; SASSE, Martina Angela. Users are not the enemy. <strong>Communications of the ACM</strong>, New York, v. 42, n. 12, p. 40-46, dez. 1999. DOI: <a href="https://doi.org/10.1145/322796.322806" rel="noopener">https://doi.org/10.1145/322796.322806</a>.</li>
+<li>ANJOS, Thaiana Pereira dos; GONTIJO, Leila Amaral. Recomendações de usabilidade e acessibilidade para interface de telefone celular visando o público idoso. <strong>Production</strong>, São Paulo, v. 25, n. 4, p. 791-811, out./dez. 2015. DOI: <a href="https://doi.org/10.1590/0103-6513.091312" rel="noopener">https://doi.org/10.1590/0103-6513.091312</a>.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Resolução BCB nº 103, de 8 de junho de 2021</strong>. Brasília, DF: BCB, 2021a. Institui, no Regulamento do Pix, o Mecanismo Especial de Devolução.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Resolução BCB nº 142, de 23 de setembro de 2021</strong>. Brasília, DF: BCB, 2021b.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Instrução Normativa BCB nº 491, de 23 de julho de 2024</strong>. Brasília, DF: BCB, 2024.</li>
+<li>BANCO CENTRAL DO BRASIL. <strong>Proteger-se com o BC Protege+</strong>. Brasília, DF: BCB, 2025. Disponível em: <a href="https://www.gov.br/pt-br/servicos/proteger-se-com-o-bc-protege" rel="noopener">https://www.gov.br/pt-br/servicos/proteger-se-com-o-bc-protege</a>. Acesso em: 15 out. 2026.</li>
+<li>BARBOSA, Simone Diniz Junqueira; SILVA, Bruno Santana da. <strong>Interação humano-computador</strong>. Rio de Janeiro: Elsevier, 2010.</li>
+<li>BARDIN, Laurence. <strong>Análise de conteúdo</strong>. São Paulo: Edições 70, 2016.</li>
+<li>BRASIL. Lei nº 8.078, de 11 de setembro de 1990. Dispõe sobre a proteção do consumidor e dá outras providências. <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 12 set. 1990.</li>
+<li>BRASIL. Lei nº 10.741, de 1º de outubro de 2003. Dispõe sobre o Estatuto da Pessoa Idosa e dá outras providências. <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 3 out. 2003. Redação dada pela Lei nº 14.423, de 22 de julho de 2022.</li>
+<li>BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 7 jul. 2015.</li>
+<li>BRASIL. Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD). <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 15 ago. 2018.</li>
+<li>BRASIL. Lei nº 14.431, de 3 de agosto de 2022. Altera as Leis nº 10.820, de 17 de dezembro de 2003, nº 8.213, de 24 de julho de 1991, e nº 8.742, de 7 de dezembro de 1993, para ampliar a margem de crédito consignado [...]. <strong>Diário Oficial da União</strong>: seção 1, Brasília, DF, 4 ago. 2022.</li>
+<li>BRASIL. Ministério do Planejamento, Orçamento e Gestão. <strong>eMAG</strong>: Modelo de Acessibilidade em Governo Eletrônico. Versão 3.1. Brasília, DF: MP, 2014.</li>
+<li>CIALDINI, Robert B. <strong>As armas da persuasão</strong>: como influenciar e não se deixar influenciar. Tradução de Ivo Korytowski. Rio de Janeiro: Sextante, 2012.</li>
+<li>CZAJA, Sara J. <em>et al</em>. <strong>Designing for older adults</strong>: principles and creative human factors approaches. 3. ed. Boca Raton: CRC Press, 2019.</li>
+<li>DAVIS, Fred D. Perceived usefulness, perceived ease of use, and user acceptance of information technology. <strong>MIS Quarterly</strong>, Minneapolis, v. 13, n. 3, p. 319-340, 1989.</li>
+<li>DEQUE SYSTEMS. <strong>axe-core</strong>: accessibility engine for automated web UI testing. Versão 4.10.2. [<em>S. l.</em>]: Deque Systems, 2024. Disponível em: <a href="https://github.com/dequelabs/axe-core" rel="noopener">https://github.com/dequelabs/axe-core</a>. Acesso em: 15 out. 2026.</li>
+<li>DRESCH, Aline; LACERDA, Daniel Pacheco; ANTUNES JÚNIOR, José Antonio Valle. <strong>Design science research</strong>: método de pesquisa para avanço da ciência e tecnologia. Porto Alegre: Bookman, 2015.</li>
+<li>FELICIANO, Afonso de Paula; FROGERI, Rodrigo Franklin. A dinâmica de uso dos aplicativos móveis bancários: uma análise sob a perspectiva da população idosa. <strong>Revista de Sistemas e Computação</strong>, Salvador, v. 8, n. 2, 2018. DOI: <a href="https://doi.org/10.36558/rsc.v8i2.5699" rel="noopener">https://doi.org/10.36558/rsc.v8i2.5699</a>.</li>
+<li>FÓRUM BRASILEIRO DE SEGURANÇA PÚBLICA. <strong>Anuário Brasileiro de Segurança Pública 2025</strong>. São Paulo: FBSP, 2025.</li>
+<li>GIL, Antonio Carlos. <strong>Como elaborar projetos de pesquisa</strong>. 5. ed. São Paulo: Atlas, 2010.</li>
+<li>GRASSI, Paul A. <em>et al</em>. <strong>Digital identity guidelines</strong>: authentication and lifecycle management. Gaithersburg: National Institute of Standards and Technology, 2017. (NIST Special Publication 800-63B). DOI: <a href="https://doi.org/10.6028/NIST.SP.800-63b" rel="noopener">https://doi.org/10.6028/NIST.SP.800-63b</a>.</li>
+<li>GRAY, Colin M. <em>et al</em>. The dark (patterns) side of UX design. <em>In</em>: CHI CONFERENCE ON HUMAN FACTORS IN COMPUTING SYSTEMS, 2018, Montreal. <strong>Proceedings</strong> [...]. New York: ACM, 2018. DOI: <a href="https://doi.org/10.1145/3173574.3174108" rel="noopener">https://doi.org/10.1145/3173574.3174108</a>.</li>
+<li>HADNAGY, Christopher. <strong>Social engineering</strong>: the science of human hacking. 2. ed. Indianapolis: Wiley, 2018.</li>
+<li>HEVNER, Alan R. <em>et al</em>. Design science in information systems research. <strong>MIS Quarterly</strong>, Minneapolis, v. 28, n. 1, p. 75-105, 2004.</li>
+<li>INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA. <strong>Censo Demográfico 2022</strong>: população por idade e sexo: resultados do universo. Rio de Janeiro: IBGE, 2023.</li>
+<li>INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATÍSTICA. <strong>Acesso à internet e à televisão e posse de telefone móvel celular para uso pessoal 2023</strong>. Rio de Janeiro: IBGE, 2024. (Pesquisa Nacional por Amostra de Domicílios Contínua).</li>
+<li>INSTITUTO DE DEFESA DE CONSUMIDORES. <strong>Golpes contra pessoas idosas</strong>: um guia com dicas de como se prevenir e o que fazer se for vítima de golpes no sistema financeiro digital. São Paulo: Idec, 2024. Disponível em: <a href="https://idec.org.br/system/files/ferramentas/idec-guia-golpes-contra-pessoas-idosas.pdf" rel="noopener">https://idec.org.br/system/files/ferramentas/idec-guia-golpes-contra-pessoas-idosas.pdf</a>. Acesso em: 15 out. 2026.</li>
+<li>INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. <strong>ISO 9241-11:2018</strong>: ergonomics of human-system interaction: part 11: usability: definitions and concepts. Geneva: ISO, 2018.</li>
+<li>KAHNEMAN, Daniel. <strong>Rápido e devagar</strong>: duas formas de pensar. Tradução de Cássio de Arantes Leite. Rio de Janeiro: Objetiva, 2012.</li>
+<li>KANE, Lexie. <strong>Usability for older adults</strong>: challenges and changes. Fremont: Nielsen Norman Group, 8 set. 2019. Disponível em: <a href="https://www.nngroup.com/articles/usability-for-senior-citizens/" rel="noopener">https://www.nngroup.com/articles/usability-for-senior-citizens/</a>. Acesso em: 15 out. 2026.</li>
+<li>LAUDON, Kenneth C.; LAUDON, Jane P. <strong>Sistemas de informação gerenciais</strong>. 11. ed. São Paulo: Pearson Education do Brasil, 2014.</li>
+<li>LUGURI, Jamie; STRAHILEVITZ, Lior Jacob. Shining a light on dark patterns. <strong>Journal of Legal Analysis</strong>, Oxford, v. 13, n. 1, p. 43-109, 2021. DOI: <a href="https://doi.org/10.1093/jla/laaa006" rel="noopener">https://doi.org/10.1093/jla/laaa006</a>.</li>
+<li>MARCONI, Marina de Andrade; LAKATOS, Eva Maria. <strong>Fundamentos de metodologia científica</strong>. 9. ed. São Paulo: Atlas, 2021.</li>
+<li>MATHUR, Arunesh <em>et al</em>. Dark patterns at scale: findings from a crawl of 11K shopping websites. <strong>Proceedings of the ACM on Human-Computer Interaction</strong>, New York, v. 3, n. CSCW, p. 1-32, 2019. DOI: <a href="https://doi.org/10.1145/3359183" rel="noopener">https://doi.org/10.1145/3359183</a>.</li>
+<li>MELO, Karine. Golpes financeiros contra idosos cresceram 60%, diz Febraban. <strong>Agência Brasil</strong>, Brasília, DF, 2 set. 2020. Disponível em: <a href="https://agenciabrasil.ebc.com.br/economia/noticia/2020-09/golpes-financeiros-contra-idosos-cresceram-60-diz-febraban" rel="noopener">https://agenciabrasil.ebc.com.br/economia/noticia/2020-09/golpes-financeiros-contra-idosos-cresceram-60-diz-febraban</a>. Acesso em: 15 out. 2026.</li>
+<li>MITNICK, Kevin D.; SIMON, William L. <strong>A arte de enganar</strong>: ataques de hackers: controlando o fator humano na segurança da informação. São Paulo: Pearson Makron Books, 2003.</li>
+<li>MOTA, Suzan Evellyn Nascimento da. <strong>Recomendações de boas práticas para apps de serviço de atendimento bancário à pessoa idosa</strong>. 2024. Trabalho de Conclusão de Curso (Graduação) – Universidade Federal do Amazonas, Manaus, 2024. Disponível em: <a href="http://riu.ufam.edu.br/handle/prefix/8196" rel="noopener">http://riu.ufam.edu.br/handle/prefix/8196</a>. Acesso em: 15 out. 2026.</li>
+<li>NERI, Anita Liberalesso (org.). <strong>Desenvolvimento e envelhecimento</strong>: perspectivas biológicas, psicológicas e sociológicas. Campinas: Papirus, 2001.</li>
+<li>NIELSEN, Jakob. <strong>Usability engineering</strong>. Boston: Academic Press, 1993.</li>
+<li>NIELSEN, Jakob. <strong>10 usability heuristics for user interface design</strong>. Fremont: Nielsen Norman Group, 24 abr. 1994. Atualizado em 2024. Disponível em: <a href="https://www.nngroup.com/articles/ten-usability-heuristics/" rel="noopener">https://www.nngroup.com/articles/ten-usability-heuristics/</a>. Acesso em: 15 out. 2026.</li>
+<li>NORMAN, Donald A. <strong>O design do dia a dia</strong>. Rio de Janeiro: Rocco, 2006.</li>
+<li>OLIVEIRA, Daniela <em>et al</em>. Dissecting spear phishing emails for older vs young adults: on the interplay of weapons of influence and life domains in predicting susceptibility to phishing. <em>In</em>: CHI CONFERENCE ON HUMAN FACTORS IN COMPUTING SYSTEMS, 2017, Denver. <strong>Proceedings</strong> [...]. New York: ACM, 2017. DOI: <a href="https://doi.org/10.1145/3025453.3025831" rel="noopener">https://doi.org/10.1145/3025453.3025831</a>.</li>
+<li>PEFFERS, Ken <em>et al</em>. A design science research methodology for information systems research. <strong>Journal of Management Information Systems</strong>, [<em>S. l.</em>], v. 24, n. 3, p. 45-77, 2007.</li>
+<li>PRENSKY, Marc. Digital natives, digital immigrants. <strong>On the Horizon</strong>, [<em>S. l.</em>], v. 9, n. 5, p. 1-6, 2001.</li>
+<li>PRESSMAN, Roger S.; MAXIM, Bruce R. <strong>Engenharia de software</strong>: uma abordagem profissional. 8. ed. Porto Alegre: AMGH, 2016.</li>
+<li>PWC BRASIL; INSTITUTO LOCOMOTIVA. <strong>O abismo digital no Brasil</strong>. São Paulo: PwC Brasil, 2022. Disponível em: <a href="https://www.pwc.com.br/pt/estudos/preocupacoes-ceos/mais-temas/2022/O_Abismo_Digital.pdf" rel="noopener">https://www.pwc.com.br/pt/estudos/preocupacoes-ceos/mais-temas/2022/O_Abismo_Digital.pdf</a>. Acesso em: 15 out. 2026.</li>
+<li>RODRIGUES, Agatha Bhenares Alves Martins; SANTOS, Simone de Oliveira. Avaliação de usabilidade em aplicativos bancários móveis no contexto do público idoso. <em>In</em>: WORKSHOP SOBRE AS IMPLICAÇÕES DA COMPUTAÇÃO NA SOCIEDADE (WICS), 3., 2022, Niterói. <strong>Anais</strong> [...]. Porto Alegre: Sociedade Brasileira de Computação, 2022. p. 101-107. DOI: <a href="https://doi.org/10.5753/wics.2022.223350" rel="noopener">https://doi.org/10.5753/wics.2022.223350</a>.</li>
+<li>SANTOS, Simone de Oliveira; RODRIGUES, Agatha Bhenares Alves Martins; RIBEIRO, Ítalo Mendes da Silva. Usability evaluation of mobile banking applications in the context of the elderly in a city of Ceará. <em>In</em>: SIMPÓSIO BRASILEIRO SOBRE FATORES HUMANOS EM SISTEMAS COMPUTACIONAIS (IHC), 22., 2023, Maceió. <strong>Anais</strong> [...]. Porto Alegre: Sociedade Brasileira de Computação, 2023.</li>
+<li>SHNEIDERMAN, Ben <em>et al</em>. <strong>Designing the user interface</strong>: strategies for effective human-computer interaction. 6. ed. Boston: Pearson, 2016.</li>
+<li>THALER, Richard H.; SUNSTEIN, Cass R. <strong>Nudge</strong>: como tomar melhores decisões sobre saúde, dinheiro e felicidade. Rio de Janeiro: Objetiva, 2019.</li>
+<li>WHITTEN, Alma; TYGAR, J. D. Why Johnny can’t encrypt: a usability evaluation of PGP 5.0. <em>In</em>: USENIX SECURITY SYMPOSIUM, 8., 1999, Washington, DC. <strong>Proceedings</strong> [...]. Berkeley: USENIX Association, 1999. p. 169-184.</li>
+<li>WORLD WIDE WEB CONSORTIUM. <strong>Web Content Accessibility Guidelines (WCAG) 2.2</strong>. W3C Recommendation. [<em>S. l.</em>]: W3C, 2024. Disponível em: <a href="https://www.w3.org/TR/WCAG22/" rel="noopener">https://www.w3.org/TR/WCAG22/</a>. Acesso em: 15 out. 2026.</li>
+<li>ZABINI, Thaina Delgado. <strong>UX case</strong>: design digital para idosos. 2021. Trabalho de Conclusão de Curso (Bacharelado em Design) – Faculdade de Arquitetura, Artes, Comunicação e Design, Universidade Estadual Paulista, Bauru, 2021.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-h">Sobre este guia</p>
+        <p>Guia para o desenvolvimento de interfaces financeiras acessíveis ao público idoso e resistentes à engenharia social. Artefato desenvolvido por meio de <em>Design Science Research</em>, a partir de pesquisa bibliográfica e documental em Sistemas de Informação, Interação Humano-Computador, segurança da informação e psicologia comportamental.</p>
+        <p>Leonardo Brandão e Endrio Emanuel Ferreira Soares · orientação da Prof.ª Dr.ª Daniela Augusta Guimarães Dias.</p>
+      </div>
+      <div>
+        <p class="foot-h">Referencial principal</p>
+        <ul class="ref-list">
+          <li>Nielsen (1994) — heurísticas de usabilidade</li>
+          <li>Shneiderman <em>et al.</em> (2016) — regras de ouro</li>
+          <li>World Wide Web Consortium (2024) — WCAG 2.2</li>
+          <li>Kahneman (2012); Cialdini (2012)</li>
+          <li>Czaja <em>et al.</em> (2019) — design para idosos</li>
+        </ul>
+      </div>
+      <nav aria-label="Atalhos do rodapé">
+        <p class="foot-h">Atalhos</p>
+        <ul>
+          <li><a href="#golpes">Matriz de golpes</a></li>
+          <li><a href="#diretrizes">16 diretrizes</a></li>
+          <li><a href="#padroes">Padrões antes e depois</a></li>
+          <li><a href="#checklist">Checklist de conformidade</a></li>
+          <li><a href="#referencias">Referências</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="fine">Guia metodológico produzido como Trabalho de Conclusão de Curso — Bacharelado em Sistemas de Informação, IFSULDEMINAS Campus Machado, 2026. Conteúdo com finalidade acadêmica e de referência técnica; não substitui auditoria de segurança da informação, teste com usuários ou avaliação jurídica de conformidade.</p>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Voltar ao topo"><svg aria-hidden="true"><use href="#i-up"/></svg></button>
+</body>
+</html>
