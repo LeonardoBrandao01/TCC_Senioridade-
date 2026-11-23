@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://guia-interfaces-financeiras.vercel.app/sitemap.xml
